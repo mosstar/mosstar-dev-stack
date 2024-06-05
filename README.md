@@ -8,6 +8,8 @@ Firstly, you have to install docker and docker-compose on your machine. Then, yo
 Installation Link: https://docs.docker.com/desktop/
 
 ```bash
+$ git clone git@github.com:mosstar/dev-stack.git
+$ cd dev-stack
 $ docker-compose up -d
 ```
 
