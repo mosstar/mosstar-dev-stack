@@ -2,7 +2,7 @@
 
 This repository contains the docker-compose file for the development stack of the mosstar projects.
 
-## Introduction
+## Installation
 Firstly, you have to install docker and docker-compose on your machine. Then, you can run the following command to start the development stack.
 
 Installation Link: https://docs.docker.com/desktop/
