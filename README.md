@@ -1,5 +1,17 @@
 # mosstar dev stack
 
+## Introduction
+Firstly, you have to install docker and docker-compose on your machine. Then, you can run the following command to start the development stack.
+
+Installation Link: https://docs.docker.com/desktop/
+
+```bash
+$ docker-compose up -d
+```
+
+## Services
+The following table shows the services that are included in the development stack.
+
 | Service           | Address                              | User Name | Password   |
 |-------------------|--------------------------------------|-----------|------------|
 | Traefik Dashboard | http://traefik.localhost             | -         | -          |
