@@ -4,7 +4,8 @@ This repository contains the docker-compose file for the development stack of Mo
 
 ## Installation
 
-Before you begin, ensure you have Docker and Docker Compose installed on your machine. If not, you can follow the installation guide [here](https://docs.docker.com/desktop/).
+Before you begin, ensure you have Docker and Docker Compose installed on your machine. If not, you can follow the
+installation guide [here](https://docs.docker.com/desktop/).
 
 To start the development stack, run the following command:
 
@@ -19,7 +20,7 @@ The development stack includes the following services:
 | Service           | Address                              | User Name | Password   |
 |-------------------|--------------------------------------|-----------|------------|
 | Traefik Dashboard | http://traefik.localhost             | -         | -          |
-| postgresql        | localhost:5435                       | mosstar   | mosstar123 |
+| postgres          | localhost:5432                       | mosstar   | mosstar123 |
 | redis             | localhost:6379                       | -         | -          |
 | rabbitmq          | localhost:5672                       | mosstar   | mosstar123 |
 | rabbitmq console  | http://rabbitmq.localhost            | mosstar   | mosstar123 |
@@ -33,6 +34,7 @@ The development stack includes the following services:
 
 ## Customization
 
-You can customize the development stack according to your project requirements. Feel free to fork this repository, make changes, and submit a pull request for improvements.
+You can customize the development stack according to your project requirements. Feel free to fork this repository, make
+changes, and submit a pull request for improvements.
 
 Your contributions are welcome!
