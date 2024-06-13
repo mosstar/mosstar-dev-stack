@@ -21,9 +21,9 @@ fi
 
 # Set GitHub repository address
 if [ "$CLONE_METHOD" == "SSH" ] || [ "$CLONE_METHOD" == "ssh" ]; then
-    REPO_URL="git@github.com:mosstar/dev-stack.git"
+    REPO_URL="git@github.com:mosstar/mosstar-dev-stack.git"
 else
-    REPO_URL="https://github.com/mosstar/dev-stack"
+    REPO_URL="https://github.com/mosstar/mosstar-dev-stack"
 fi
 
 # Print repository address
