@@ -2,17 +2,17 @@
 
 # Check if Docker and Docker Compose are installed
 if ! command -v docker &> /dev/null; then
-    echo "Docker bulunamadı. Lütfen Docker'ı yükleyin ve tekrar deneyin."
+    echo "Docker not found. Please install Docker and try again."
     exit 1
 fi
 
 if ! command -v docker-compose &> /dev/null; then
-    echo "Docker Compose bulunamadı. Lütfen Docker Compose'u yükleyin ve tekrar deneyin."
+    echo "Docker Compose not found. Please install Docker Compose and try again."
     exit 1
 fi
 
 # Ask user to choose the clone method
-read -p "Clone yöntemi olarak SSH mı yoksa HTTP mi kullanmak istersiniz? (default: HTTP): " CLONE_METHOD
+read -p "Would you like to use SSH or HTTP as the clone method? (default: HTTP): " CLONE_METHOD
 
 # Set default value for clone method
 if [ -z "$CLONE_METHOD" ]; then
@@ -40,6 +40,6 @@ if [ -d "$FOLDER_NAME" ]; then
     cd $FOLDER_NAME
     docker-compose up --build -d
 else
-    echo "Klonlama başarısız oldu. Lütfen repo adresini kontrol edin ve tekrar deneyin."
+    echo "The git clone command didn't work properly. Please check the repository address and try again."
     exit 1
 fi
