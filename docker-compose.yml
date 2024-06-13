@@ -1,3 +1,5 @@
+name: mosstar-dev-stack
+
 services:
   traefik:
     image: traefik:v2.11.4
