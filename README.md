@@ -10,9 +10,7 @@ the development stack.
 Installation Link: https://docs.docker.com/desktop/
 
 ```bash
-$ git clone git@github.com:mosstar/mosstar-dev-stack.git
-$ cd mosstar-dev-stack
-$ docker-compose up --build -d
+$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mosstar/mosstar-dev-stack/master/install.sh)"
 ```
 
 ## Services
