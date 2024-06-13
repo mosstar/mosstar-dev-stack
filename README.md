@@ -10,9 +10,9 @@ the development stack.
 Installation Link: https://docs.docker.com/desktop/
 
 ```bash
-$ git clone git@github.com:mosstar/dev-stack.git
-$ cd dev-stack
-$ docker-compose up -d
+$ git clone git@github.com:mosstar/dev-stack.git mosstar-dev-stack
+$ cd mosstar-dev-stack
+$ docker-compose up --build -d
 ```
 
 ## Services
@@ -22,7 +22,7 @@ The following table shows the services that are included in the development stac
 | Service           | Address                              | User Name | Password   |
 |-------------------|--------------------------------------|-----------|------------|
 | Traefik Dashboard | http://traefik.localhost             | -         | -          |
-| postgresql        | localhost:5435                       | postgres  | postgres   |
+| postgresql        | localhost:5435                       | mosstar   | mosstar123 |
 | redis             | localhost:6379                       | -         | -          |
 | rabbitmq          | localhost:5672                       | mosstar   | mosstar123 |
 | rabbitmq console  | http://rabbitmq.localhost            | mosstar   | mosstar123 |

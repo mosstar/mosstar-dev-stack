@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   traefik:
-    image: traefik:v2.11
+    image: traefik:v2.11.4
     restart: always
     environment:
       TZ: "Europe/Istanbul"
@@ -15,7 +15,7 @@ services:
       - "--entrypoints.rabbitmq.address=:5672"
     ports:
       - "${HTTP_PORT}:80" # HTTP
-      - "${POSTGRES_PORT}:5432" # PostGIS
+      - "${POSTGRES_PORT}:5432" # Postgres
       - "${REDIS_PORT}:6379" # Redis
       - "${RABBITMQ_PORT}:5672" # RabbitMQ
     labels:
@@ -27,11 +27,13 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   postgres:
-    image: postgis/postgis:16-3.4-alpine
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: ${DEFAULT_USER}
+      POSTGRES_PASSWORD: ${DEFAULT_PASSWORD}
     labels:
       - traefik.enable=true
       - traefik.tcp.routers.postgres.rule=HostSNI(`*`)
@@ -41,7 +43,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
   redis:
-    image: redis:7.0-alpine
+    image: redis:7.2.5-alpine
     restart: always
     labels:
       - traefik.enable=true
@@ -97,8 +99,8 @@ services:
     environment:
       KC_DB: postgres
       KC_DB_URL: "jdbc:postgresql://postgres:5432/keycloak"
-      KC_DB_USERNAME: postgres
-      KC_DB_PASSWORD: postgres
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: keycloak
 
       KC_HOSTNAME: keycloak.localhost
       KC_HEALTH_ENABLED: true
@@ -172,7 +174,7 @@ services:
       - traefik.http.services.apm-server.loadbalancer.server.port=8200
 
   rabbitmq:
-    image: rabbitmq:3-management-alpine
+    image: rabbitmq:3.13.3-management-alpine
     restart: always
     environment:
       RABBITMQ_DEFAULT_USER: ${DEFAULT_USER}

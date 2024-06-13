@@ -30,14 +30,15 @@ fi
 echo "Repository Address: $REPO_URL"
 
 REPO_NAME=$(basename $REPO_URL .git)
+FOLDER_NAME="mosstar-dev-stack"
 
 # Clone the repository
-git clone $REPO_URL
+git clone $REPO_URL $FOLDER_NAME
 
 # Check if the repository is cloned successfully
-if [ -d "$REPO_NAME" ]; then
-    cd $REPO_NAME
-    docker-compose up -d
+if [ -d "$FOLDER_NAME" ]; then
+    cd $FOLDER_NAME
+    docker-compose up --build -d
 else
     echo "Klonlama başarısız oldu. Lütfen repo adresini kontrol edin ve tekrar deneyin."
     exit 1
