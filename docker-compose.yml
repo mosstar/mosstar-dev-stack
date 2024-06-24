@@ -21,7 +21,7 @@ services:
     labels:
       - traefik.enable=true
 
-      - traefik.http.routers.traefik.rule=Host(`traefik.localhost`)
+      - traefik.http.routers.traefik.rule=Host(`traefik.local`)
       - traefik.http.services.traefik.loadbalancer.server.port=8080
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
@@ -61,7 +61,7 @@ services:
       GEOSERVER_ADMIN_PASSWORD: ${DEFAULT_PASSWORD}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.geoserver.rule=Host(`geoserver.localhost`)
+      - traefik.http.routers.geoserver.rule=Host(`geoserver.local`)
       - traefik.http.routers.geoserver.entrypoints=http
       - traefik.http.services.geoserver.loadbalancer.server.port=8080
     volumes:
@@ -73,17 +73,17 @@ services:
     environment:
       MINIO_ROOT_USER: ${DEFAULT_USER}
       MINIO_ROOT_PASSWORD: ${DEFAULT_PASSWORD}
-      MINIO_BROWSER_REDIRECT_URL: http://minio-console.localhost
+      MINIO_BROWSER_REDIRECT_URL: http://minio-console.local
     command: server /data --console-address ":9001"
     labels:
       - traefik.enable=true
 
-      - traefik.http.routers.minio.rule=Host(`minio.localhost`)
+      - traefik.http.routers.minio.rule=Host(`minio.local`)
       - traefik.http.routers.minio.entrypoints=http
       - traefik.http.routers.minio.service=minio
       - traefik.http.services.minio.loadbalancer.server.port=9000
 
-      - traefik.http.routers.minio-console.rule=Host(`minio-console.localhost`)
+      - traefik.http.routers.minio-console.rule=Host(`minio-console.local`)
       - traefik.http.routers.minio-console.entrypoints=http
       - traefik.http.routers.minio-console.service=minio-console
       - traefik.http.services.minio-console.loadbalancer.server.port=9001
@@ -102,7 +102,7 @@ services:
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: keycloak
 
-      KC_HOSTNAME: keycloak.localhost
+      KC_HOSTNAME: keycloak.local
       KC_HEALTH_ENABLED: true
       KC_METRICS_ENABLED: true
 
@@ -110,7 +110,7 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: ${DEFAULT_PASSWORD}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.keycloak.rule=Host(`keycloak.localhost`)
+      - traefik.http.routers.keycloak.rule=Host(`keycloak.local`)
       - traefik.http.routers.keycloak.entrypoints=http
       - traefik.http.services.keycloak.loadbalancer.server.port=8080
     volumes:
@@ -127,7 +127,7 @@ services:
       - ELASTIC_PASSWORD=${DEFAULT_PASSWORD}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.elasticsearch.rule=Host(`elasticsearch.localhost`)
+      - traefik.http.routers.elasticsearch.rule=Host(`elasticsearch.local`)
       - traefik.http.routers.elasticsearch.entrypoints=http
       - traefik.http.services.elasticsearch.loadbalancer.server.port=9200
     volumes:
@@ -143,10 +143,10 @@ services:
       ELASTICSEARCH_HOSTS: http://elasticsearch:9200
       ELASTICSEARCH_USERNAME: elastic
       ELASTICSEARCH_PASSWORD: ${DEFAULT_PASSWORD}
-      SERVER_PUBLICBASEURL: http://kibana.localhost
+      SERVER_PUBLICBASEURL: http://kibana.local
     labels:
       - traefik.enable=true
-      - traefik.http.routers.kibana.rule=Host(`kibana.localhost`)
+      - traefik.http.routers.kibana.rule=Host(`kibana.local`)
       - traefik.http.routers.kibana.entrypoints=http
       - traefik.http.services.kibana.loadbalancer.server.port=5601
 
@@ -169,7 +169,7 @@ services:
         -E apm-server.auth.secret_token=$ELASTIC_APM_SECRET_TOKEN
     labels:
       - traefik.enable=true
-      - traefik.http.routers.apm-server.rule=Host(`apm.localhost`)
+      - traefik.http.routers.apm-server.rule=Host(`apm.local`)
       - traefik.http.routers.apm-server.entrypoints=http
       - traefik.http.services.apm-server.loadbalancer.server.port=8200
 
@@ -187,7 +187,7 @@ services:
         - traefik.tcp.routers.rabbitmq.service=rabbitmq
         - traefik.tcp.services.rabbitmq.loadbalancer.server.port=5672
 
-        - traefik.http.routers.rabbitmq-console.rule=Host(`rabbitmq.localhost`)
+        - traefik.http.routers.rabbitmq-console.rule=Host(`rabbitmq.local`)
         - traefik.http.routers.rabbitmq-console.entrypoints=http
         - traefik.http.routers.rabbitmq-console.service=rabbitmq-console
         - traefik.http.services.rabbitmq-console.loadbalancer.server.port=15672
