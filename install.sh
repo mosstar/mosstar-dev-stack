@@ -49,7 +49,7 @@ fi
 if ! command -v dnsmasq &> /dev/null; then
     if [ "$SKIP_INSTALL" = false ]; then
         echo "dnsmasq not found. Installing dnsmasq..."
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        brew install dnsmasq
     else
         echo "dnsmasq not found. Please install dnsmasq and try again."
         exit 1
