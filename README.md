@@ -17,20 +17,20 @@ $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mosstar/mosstar-d
 
 The development stack includes the following services:
 
-| Service           | Address                              | User Name | Password   |
-|-------------------|--------------------------------------|-----------|------------|
-| Traefik Dashboard | http://traefik.localhost             | -         | -          |
-| postgres          | localhost:5432                       | mosstar   | mosstar123 |
-| redis             | localhost:6379                       | -         | -          |
-| rabbitmq          | localhost:5672                       | mosstar   | mosstar123 |
-| rabbitmq console  | http://rabbitmq.localhost            | mosstar   | mosstar123 |
-| geoserver         | http://geoserver.localhost/geoserver | mosstar   | mosstar123 |
-| minio             | http://minio.localhost               | mosstar   | mosstar123 |
-| minio console     | http://minio-console.localhost       | mosstar   | mosstar123 |
-| keycloak          | http://keycloak.localhost            | mosstar   | mosstar123 |
-| elasticsearch     | http://elasticsearch.localhost       | elastic   | mosstar123 |
-| kibana            | http://kibana.localhost              | elastic   | mosstar123 |
-| apm-server        | http://apm.localhost                 | -         | mosstar123 |
+| Service           | Address                          | User Name | Password   |
+|-------------------|----------------------------------|-----------|------------|
+| Traefik Dashboard | http://traefik.local             | -         | -          |
+| postgres          | localhost:5432                   | mosstar   | mosstar123 |
+| redis             | localhost:6379                   | -         | -          |
+| rabbitmq          | localhost:5672                   | mosstar   | mosstar123 |
+| rabbitmq console  | http://rabbitmq.local            | mosstar   | mosstar123 |
+| geoserver         | http://geoserver.local/geoserver | mosstar   | mosstar123 |
+| minio             | http://minio.local               | mosstar   | mosstar123 |
+| minio console     | http://minio-console.local       | mosstar   | mosstar123 |
+| keycloak          | http://keycloak.local            | mosstar   | mosstar123 |
+| elasticsearch     | http://elasticsearch.local       | elastic   | mosstar123 |
+| kibana            | http://kibana.local              | elastic   | mosstar123 |
+| apm-server        | http://apm.local                 | -         | mosstar123 |
 
 ## Customization
 
