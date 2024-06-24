@@ -62,7 +62,6 @@ fi
 # Print repository address
 echo "Repository Address: $REPO_URL"
 
-REPO_NAME=$(basename $REPO_URL .git)
 FOLDER_NAME="mosstar-dev-stack"
 
 # Clone the repository
