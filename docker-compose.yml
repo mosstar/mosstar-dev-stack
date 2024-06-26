@@ -28,7 +28,7 @@ services:
 
   postgres:
     build:
-      context: ./postgres
+      context: ./images/postgres
       dockerfile: Dockerfile
     restart: always
     environment:
