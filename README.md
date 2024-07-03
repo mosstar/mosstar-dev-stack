@@ -13,6 +13,16 @@ To start the development stack, run the following command:
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mosstar/mosstar-dev-stack/master/install.sh)"
 ```
 
+This command will clone the repository and start the development stack.
+
+## Update
+
+To update the development stack, run the following command in the repository directory:
+
+```bash
+./update.sh
+```
+
 ## Services
 
 The development stack includes the following services:
