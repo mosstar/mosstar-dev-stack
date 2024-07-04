@@ -30,6 +30,7 @@ The development stack includes the following services:
 | Service           | Address                          | User Name | Password   |
 |-------------------|----------------------------------|-----------|------------|
 | Traefik Dashboard | http://traefik.local             | -         | -          |
+| Portainer UI      | http://portainer.local           | -         | -          |
 | postgres          | localhost:5432                   | mosstar   | mosstar123 |
 | redis             | localhost:6379                   | -         | -          |
 | rabbitmq          | localhost:5672                   | mosstar   | mosstar123 |
