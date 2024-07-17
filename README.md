@@ -27,22 +27,22 @@ To update the development stack, run the following command in the repository dir
 
 The development stack includes the following services:
 
-| Service           | Address                          | User Name              | Password   |
-|-------------------|----------------------------------|------------------------|------------|
-| Traefik Dashboard | http://traefik.local             | -                      | -          |
-| Portainer UI      | http://portainer.local           | -                      | -          |
-| postgres          | localhost:5432                   | mosstar                | mosstar123 |
-| redis             | localhost:6379                   | -                      | -          |
-| rabbitmq          | localhost:5672                   | mosstar                | mosstar123 |
-| pgAdmin           | http://pgadmin.local             | mosstar@mosstar.com.tr | mosstar123 |
-| rabbitmq console  | http://rabbitmq.local            | mosstar                | mosstar123 |
-| geoserver         | http://geoserver.local/geoserver | mosstar                | mosstar123 |
-| minio             | http://minio.local               | mosstar                | mosstar123 |
-| minio console     | http://minio-console.local       | mosstar                | mosstar123 |
-| keycloak          | http://keycloak.local            | mosstar                | mosstar123 |
-| elasticsearch     | http://elasticsearch.local       | elastic                | mosstar123 |
-| kibana            | http://kibana.local              | elastic                | mosstar123 |
-| apm-server        | http://apm.local                 | -                      | mosstar123 |
+| Service           | Address                          | User Name          | Password   |
+|-------------------|----------------------------------|--------------------|------------|
+| Traefik Dashboard | http://traefik.local             | -                  | -          |
+| Portainer UI      | http://portainer.local           | -                  | -          |
+| postgres          | localhost:5432                   | mosstar            | mosstar123 |
+| redis             | localhost:6379                   | -                  | -          |
+| rabbitmq          | localhost:5672                   | mosstar            | mosstar123 |
+| pgAdmin           | http://pgadmin.local             | dev@mosstar.com.tr | mosstar123 |
+| rabbitmq console  | http://rabbitmq.local            | mosstar            | mosstar123 |
+| geoserver         | http://geoserver.local/geoserver | mosstar            | mosstar123 |
+| minio             | http://minio.local               | mosstar            | mosstar123 |
+| minio console     | http://minio-console.local       | mosstar            | mosstar123 |
+| keycloak          | http://keycloak.local            | mosstar            | mosstar123 |
+| elasticsearch     | http://elasticsearch.local       | elastic            | mosstar123 |
+| kibana            | http://kibana.local              | elastic            | mosstar123 |
+| apm-server        | http://apm.local                 | -                  | mosstar123 |
 
 ## Customization
 
