@@ -14,5 +14,11 @@ fi
 git checkout master
 git pull origin master
 
-# restart the docker containers
-docker-compose up --build -d
+# restart the docker containers with or without build
+if [[ "$1" == "--with-build" ]]; then
+    echo "Starting Docker Compose with build..."
+    docker-compose up --build -d
+else
+    echo "Starting Docker Compose without build..."
+    docker-compose up -d
+fi
