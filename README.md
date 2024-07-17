@@ -20,7 +20,7 @@ This command will clone the repository and start the development stack.
 To update the development stack, run the following command in the repository directory:
 
 ```bash
-./update.sh
+./update.sh [--with-build] [--recreate-env] [--no-git-pull]
 ```
 
 ## Services
