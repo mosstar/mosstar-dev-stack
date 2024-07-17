@@ -117,6 +117,9 @@ git clone $REPO_URL $FOLDER_NAME
 # Check if the repository is cloned successfully
 if [ -d "$FOLDER_NAME" ]; then
     cd $FOLDER_NAME || exit
+    # Copy the sample .env file
+    cp .env.sample .env
+    # Start Docker Compose
     docker-compose up --build -d
 else
     echo "The git clone command didn't work properly. Please check the repository address and try again."
