@@ -205,7 +205,7 @@ services:
     image: rabbitmq:3.13.3-management-alpine
     restart: always
     environment:
-      RABBITMQ_DEFAULT_USERNAME: ${DEFAULT_USERNAME}
+      RABBITMQ_DEFAULT_USER: ${DEFAULT_USERNAME}
       RABBITMQ_DEFAULT_PASS: ${DEFAULT_PASSWORD}
     labels:
         - traefik.enable=true
