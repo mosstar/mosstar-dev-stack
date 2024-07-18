@@ -119,7 +119,7 @@ services:
       - minio-data:/data
 
   keycloak:
-    image: quay.io/keycloak/keycloak:24.0.5
+    image: quay.io/keycloak/keycloak:25.0.2
     restart: always
     depends_on:
       - postgres
@@ -131,9 +131,6 @@ services:
       KC_DB_PASSWORD: keycloak
 
       KC_HOSTNAME: keycloak.local
-      KC_HEALTH_ENABLED: true
-      KC_METRICS_ENABLED: true
-
       KEYCLOAK_ADMIN: ${DEFAULT_USERNAME}
       KEYCLOAK_ADMIN_PASSWORD: ${DEFAULT_PASSWORD}
     labels:
