@@ -1,0 +1,11 @@
+127.0.0.1 traefik.local
+127.0.0.1 portainer.local
+127.0.0.1 pgadmin.local
+127.0.0.1 geoserver.local
+127.0.0.1 minio.local
+127.0.0.1 minio-console.local
+127.0.0.1 keycloak.local
+127.0.0.1 elasticsearch.local
+127.0.0.1 kibana.local
+127.0.0.1 apm.local
+127.0.0.1 rabbitmq.local
