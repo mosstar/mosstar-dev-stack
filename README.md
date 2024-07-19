@@ -23,6 +23,10 @@ To update the development stack, run the following command in the repository dir
 ./update.sh [--with-build] [--recreate-env] [--no-git-pull]
 ```
 
+The `--with-build` option will rebuild the images before starting the stack.  
+The `--recreate-env` option will recreate the `.env` file.  
+The `--no-git-pull` option will prevent the script from pulling the latest changes from the repository.
+
 ## Services
 
 The development stack includes the following services:
