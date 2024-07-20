@@ -7,6 +7,7 @@ This repository contains the docker-compose file for the development stack of Mo
 Before you begin, ensure you have Docker and Docker Compose installed on your machine. If not, you can follow the
 installation guide [here](https://docs.docker.com/desktop/).
 
+### MacOS
 To start the development stack, run the following command:
 
 ```bash
@@ -14,6 +15,19 @@ To start the development stack, run the following command:
 ```
 
 This command will clone the repository and start the development stack.
+
+### Windows
+To start the development stack, run the following commands:
+
+```bash
+git clone https://github.com/mosstar/mosstar-dev-stack.git
+cd mosstar-dev-stack
+cp .env.sample .env
+docker-compose up -d
+```
+
+After running these commands, the development stack will be up and running.  
+Copy `windows-hosts.txt` content and paste it to `C:\Windows\System32\drivers\etc\hosts` file. 
 
 ## Update
 
