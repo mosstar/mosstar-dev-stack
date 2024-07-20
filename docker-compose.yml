@@ -13,11 +13,13 @@ services:
       - "--entrypoints.postgres.address=:5432"
       - "--entrypoints.redis.address=:6379"
       - "--entrypoints.rabbitmq.address=:5672"
+      - "--entrypoints.mongodb.address=:27017"
     ports:
       - "${HTTP_PORT}:80" # HTTP
       - "${POSTGRES_PORT}:5432" # Postgres
       - "${REDIS_PORT}:6379" # Redis
       - "${RABBITMQ_PORT}:5672" # RabbitMQ
+      - "${MONGODB_PORT}:27017" # MongoDB
     labels:
       - traefik.enable=true
 
@@ -219,6 +221,20 @@ services:
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
 
+  mongo:
+    image: mongo:7.0.12
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DEFAULT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DEFAULT_PASSWORD}
+    labels:
+      - traefik.enable=true
+      - traefik.tcp.routers.mongodb.rule=HostSNI(`*`)
+      - traefik.tcp.routers.mongodb.entrypoints=mongodb
+      - traefik.tcp.services.mongodb.loadbalancer.server.port=27017
+    volumes:
+      - mongo-data:/data/db
+
 volumes:
   portainer-data:
   postgres-data:
@@ -229,3 +245,4 @@ volumes:
   keycloak-data:
   elasticsearch-data:
   rabbitmq-data:
+  mongo-data:
