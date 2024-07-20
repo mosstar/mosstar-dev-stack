@@ -199,7 +199,7 @@ services:
       - traefik.http.services.apm-server.loadbalancer.server.port=8200
 
   rabbitmq:
-    image: rabbitmq:3.13.3-management-alpine
+    image: rabbitmq:3.13.4-management-alpine
     restart: always
     environment:
       RABBITMQ_DEFAULT_USER: ${DEFAULT_USERNAME}
