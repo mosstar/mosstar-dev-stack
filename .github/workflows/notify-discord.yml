@@ -1,0 +1,22 @@
+name: Notify Discord on Push
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  notify-discord:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Send Discord Notification
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          CHANGES=$(jq -r '.commits[] | "- \(.message)"' < $GITHUB_EVENT_PATH)
+          CHANGES=$(echo "$CHANGES" | sed ':a;N;$!ba;s/\n/\\n/g')
+          REPO_URL=https://github.com/${{ github.repository }}
+          curl -H "Content-Type: application/json" -X POST -d "{\"username\": \"GitHub Bot\", \"content\": \"@${GITHUB_ACTOR} has pushed updates to the repository [${GITHUB_REPOSITORY}](${REPO_URL}).\n\n**Here are the changes:**\n${CHANGES}\n\n🚀 Please update your local development environment by running the \`./update.sh\` command in the root directory.\"}" $DISCORD_WEBHOOK_URL
