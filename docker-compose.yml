@@ -82,7 +82,7 @@ services:
       - redis-data:/data
 
   geoserver:
-    image: kartoza/geoserver:2.25.0
+    image: kartoza/geoserver:2.25.2
     restart: always
     environment:
       GEOSERVER_ADMIN_USER: ${DEFAULT_USERNAME}
