@@ -2,7 +2,7 @@ name: mosstar-dev-stack
 
 services:
   traefik:
-    image: traefik:v2.11.6
+    image: traefik:v2.11.7
     restart: always
     environment:
       TZ: "Europe/Istanbul"
@@ -58,7 +58,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
   pgadmin:
-    image: dpage/pgadmin4:8.9
+    image: dpage/pgadmin4:8.10
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: ${DEFAULT_USER_EMAIL}
@@ -73,7 +73,7 @@ services:
       - ./volumes/pgadmin/servers.json:/pgadmin4/servers.json
 
   redis:
-    image: redis:7.2.5-alpine
+    image: redis:7.4.0-alpine
     restart: always
     labels:
       - traefik.enable=true
@@ -201,7 +201,7 @@ services:
       - traefik.http.services.apm-server.loadbalancer.server.port=8200
 
   rabbitmq:
-    image: rabbitmq:3.13.4-management-alpine
+    image: rabbitmq:3.13.6-management-alpine
     restart: always
     environment:
       RABBITMQ_DEFAULT_USER: ${DEFAULT_USERNAME}
