@@ -2,7 +2,7 @@ name: mosstar-dev-stack
 
 services:
   traefik:
-    image: traefik:v2.11.7
+    image: traefik:v2.11.8
     restart: always
     environment:
       TZ: "Europe/Istanbul"
