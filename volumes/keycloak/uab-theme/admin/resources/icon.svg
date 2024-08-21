@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="43.855858mm"
+   height="7.493082mm"
+   viewBox="0 0 43.855858 7.493082"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="idmapplogo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:lockguides="true"
+     inkscape:zoom="2"
+     inkscape:cx="75.5"
+     inkscape:cy="-0.25"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="text1155"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Katman 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-29.095,-51.764234)">
+    <g
+       aria-label="IDMAPP"
+       id="text1155"
+       style="font-size:10.5833px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro';stroke-width:0.264583">
+      <path
+         d="M 33.835457,59.25721 V 51.764234 H 32.015129 V 59.25721 Z"
+         id="path4020"
+         style="fill:#ffffff" />
+      <path
+         d="M 30.915328,59.25721 V 51.764234 H 29.095 v 7.492976 z"
+         id="path4020-4"
+         style="font-size:10.5833px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro';stroke-width:0.264583;fill:#ffffff" />
+      <path
+         id="path4022-1"
+         style="font-size:10.5833px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro';stroke-width:0.264583;fill:#ffffff"
+         d="m 34.480607,51.764234 v 1.545127 h 1.767334 0.899687 c 1.248829,0 2.44481,0.497483 2.44481,2.180227 0,1.672162 -1.196022,2.2009 -2.487185,2.2009 h -0.857312 -1.767334 v 1.566828 h 2.794145 c 2.063742,0 4.201292,-1.132486 4.201295,-3.767728 0,-2.836325 -2.158802,-3.725354 -4.286045,-3.725354 z" />
+      <path
+         d="m 51.233952,59.25721 v -7.492976 h -2.614075 l -1.629828,4.804818 h -0.04233 l -1.703912,-4.804818 h -2.571741 v 7.492976 h 1.703911 l -0.04233,-5.302233 h 0.03175 l 1.89441,5.302233 h 1.269996 l 1.947327,-5.302233 h 0.03175 l -0.04233,5.302233 z"
+         id="path4024"
+         style="fill:#ffffff" />
+      <path
+         d="m 59.869922,59.25721 -3.11149,-7.492976 h -1.756827 l -3.14324,7.492976 h 1.968493 l 0.550332,-1.471079 h 2.899824 l 0.582081,1.471079 z M 57.277014,57.786131 H 54.37719 l 1.471079,-4.021654 z"
+         id="path4026"
+         sodipodi:nodetypes="ccccccccccccc"
+         style="fill:#ffffff" />
+      <path
+         d="m 66.17755,54.071393 c 0,-1.714495 -1.291163,-2.307159 -2.931574,-2.307159 h -2.751658 v 7.492976 h 1.809744 v -2.825741 h 0.89958 c 1.566329,0 2.973908,-0.624415 2.973908,-2.360076 z m -1.809745,0.01058 c 0,0.709081 -0.624414,0.910164 -1.301745,0.910164 h -0.761998 v -1.767411 h 0.793747 c 0.645582,0 1.269996,0.137583 1.269996,0.857247 z"
+         id="path4028"
+         style="fill:#ffffff" />
+      <path
+         d="m 72.950857,54.071393 c 0,-1.714495 -1.291162,-2.307159 -2.931574,-2.307159 h -2.751657 v 7.492976 h 1.809744 v -2.825741 h 0.89958 c 1.566329,0 2.973907,-0.624415 2.973907,-2.360076 z m -1.809744,0.01058 c 0,0.709081 -0.624414,0.910164 -1.301746,0.910164 H 69.07737 v -1.767411 h 0.793747 c 0.645582,0 1.269996,0.137583 1.269996,0.857247 z"
+         id="path4030"
+         style="fill:#ffffff" />
+    </g>
+  </g>
+</svg>
