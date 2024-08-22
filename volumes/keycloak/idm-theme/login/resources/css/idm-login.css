@@ -1,8 +1,18 @@
+:root {
+  --kc-logo-source: url(../img/idmapp.svg);
+
+  --kc-logo-image-width: 166px;
+  --kc-logo-image-height: 28px;
+
+  --kc-logo-zoom: 1;
+
+  --kc-logo-width: calc(var(--kc-logo-image-width) * var(--kc-logo-zoom));
+  --kc-logo-height: calc(var(--kc-logo-image-height) * var(--kc-logo-zoom));
+}
+
 div.kc-logo-text {
-  background-image: url(../img/uab.png);
-  background-repeat: no-repeat;
-  background-size: 306px 97px;
-  height: 97px;
-  width: 306px;
-  margin: 0 auto;
+  background-image: var(--kc-logo-source);
+  background-size: var(--kc-logo-width) var(--kc-logo-height);
+  width: var(--kc-logo-width);
+  height: var(--kc-logo-height);
 }
