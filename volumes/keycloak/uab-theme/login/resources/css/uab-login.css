@@ -1,0 +1,8 @@
+:root {
+  --kc-logo-source: url(../img/uab.png);
+
+  --kc-logo-image-width: 549px;
+  --kc-logo-image-height: 177px;
+
+  --kc-logo-zoom: 0.55;
+}
