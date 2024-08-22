@@ -142,7 +142,7 @@ services:
       - traefik.http.services.keycloak.loadbalancer.server.port=8080
     volumes:
       - keycloak-data:/opt/keycloak
-      - ./volumes/keycloak/uab-theme/:/opt/keycloak/themes/uab/
+      - ./volumes/keycloak/idm-theme/:/opt/keycloak/themes/idmapp/
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
