@@ -65,7 +65,7 @@ The development stack includes the following services:
 | kibana            | http://kibana.local              | elastic            | mosstar123 |
 | apm-server        | http://apm.local                 | -                  | mosstar123 |
 
-## Development Tools and Software Used in @mosstar
+## Development Tools and Programs Used in @mosstar
 
 | Program                   | Category         | Link                                           |
 |---------------------------|------------------|------------------------------------------------|
