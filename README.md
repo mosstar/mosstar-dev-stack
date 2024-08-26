@@ -8,6 +8,7 @@ Before you begin, ensure you have Docker and Docker Compose installed on your ma
 installation guide [here](https://docs.docker.com/desktop/).
 
 ### MacOS
+
 To start the development stack, run the following command:
 
 ```bash
@@ -17,6 +18,7 @@ To start the development stack, run the following command:
 This command will clone the repository and start the development stack.
 
 ### Windows
+
 To start the development stack, run the following commands:
 
 ```bash
@@ -27,7 +29,7 @@ docker-compose up -d
 ```
 
 After running these commands, the development stack will be up and running.  
-Copy `windows-hosts.txt` content and paste it to `C:\Windows\System32\drivers\etc\hosts` file. 
+Copy `windows-hosts.txt` content and paste it to `C:\Windows\System32\drivers\etc\hosts` file.
 
 ## Update
 
@@ -62,6 +64,26 @@ The development stack includes the following services:
 | elasticsearch     | http://elasticsearch.local       | elastic            | mosstar123 |
 | kibana            | http://kibana.local              | elastic            | mosstar123 |
 | apm-server        | http://apm.local                 | -                  | mosstar123 |
+
+## Development Tools and Software Used in @mosstar
+
+| Program                   | Category         | Link                                           |
+|---------------------------|------------------|------------------------------------------------|
+| iTerm2                    | Terminal         | https://iterm2.com/                            |
+| Fork                      | Git GUI          | https://git-fork.com/                          |
+| JetBrains Toolbox         | IDE              | https://www.jetbrains.com/toolbox-app/         |
+| Visual Studio Code        | Code Editor      | https://code.visualstudio.com/                 |
+| Docker Desktop            | Containerization | https://www.docker.com/products/docker-desktop |
+| Apidog                    | API Client       | https://apidog.com/                            |
+| Postman                   | API Client       | https://www.postman.com/                       |
+| Navicat                   | Database Client  | https://www.navicat.com/en/products            |
+| DBeaver                   | Database Client  | https://dbeaver.io/                            |
+| MongoDB Compass           | MongoDB Client   | https://www.mongodb.com/products/tools/compass |
+| Google Chrome             | Web Browser      | https://www.google.com/chrome/                 |
+| Firefox Developer Edition | Web Browser      | https://www.mozilla.org/tr/firefox/developer/  |
+| Zoom                      | Communication    | https://zoom.us/                               |
+| Google Meet               | Communication    | https://meet.google.com/                       |
+| Figma                     | Design           | https://www.figma.com/                         |
 
 ## Customization
 
