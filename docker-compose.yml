@@ -7,13 +7,7 @@ services:
     environment:
       TZ: "Europe/Istanbul"
     command:
-      - "--providers.docker=true"
-      - "--api.insecure=true"
-      - "--entrypoints.http.address=:80"
-      - "--entrypoints.postgres.address=:5432"
-      - "--entrypoints.redis.address=:6379"
-      - "--entrypoints.rabbitmq.address=:5672"
-      - "--entrypoints.mongodb.address=:27017"
+      - "--configFile=/etc/traefik/traefik.yml"
     ports:
       - "${HTTP_PORT}:80" # HTTP
       - "${POSTGRES_PORT}:5432" # Postgres
@@ -22,11 +16,11 @@ services:
       - "${MONGODB_PORT}:27017" # MongoDB
     labels:
       - traefik.enable=true
-
       - traefik.http.routers.traefik.rule=Host(`traefik.local`)
-      - traefik.http.services.traefik.loadbalancer.server.port=8080
+      - traefik.http.routers.traefik.service=api@internal
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - ./volumes/traefik/traefik-config.yml:/etc/traefik/traefik.yml
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 
   portainer:
     image: portainer/portainer-ce:2.20.3
@@ -38,7 +32,7 @@ services:
       - traefik.http.routers.portainer.entrypoints=http
       - traefik.http.services.portainer.loadbalancer.server.port=9000
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - portainer-data:/data
 
   postgres:
@@ -127,11 +121,12 @@ services:
       - postgres
     command: "start-dev"
     environment:
+      # DB Configuration
       KC_DB: postgres
       KC_DB_URL: "jdbc:postgresql://postgres:5432/keycloak"
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: keycloak
-
+      # Server Configuration
       KC_HOSTNAME: http://keycloak.local
       KEYCLOAK_ADMIN: ${DEFAULT_USERNAME}
       KEYCLOAK_ADMIN_PASSWORD: ${DEFAULT_PASSWORD}

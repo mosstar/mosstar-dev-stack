@@ -1,0 +1,29 @@
+global:
+  checkNewVersion: true
+
+api:
+  dashboard: true
+  insecure: true
+  disableDashboardAd: true
+
+entryPoints:
+  http:
+    address: ":80"
+  postgres:
+    address: ":5432"
+  redis:
+    address: ":6379"
+  rabbitmq:
+    address: ":5672"
+  mongodb:
+    address: ":27017"
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+    watch: true
+
+accessLog:
+  filePath: "/etc/traefik/access.log"
+  format: "json"
