@@ -1,3 +1,5 @@
+# https://doc.traefik.io/traefik/reference/static-configuration/cli/
+
 global:
   checkNewVersion: true
 
