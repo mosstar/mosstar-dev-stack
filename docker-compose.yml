@@ -204,17 +204,17 @@ services:
       RABBITMQ_DEFAULT_USER: ${DEFAULT_USERNAME}
       RABBITMQ_DEFAULT_PASS: ${DEFAULT_PASSWORD}
     labels:
-        - traefik.enable=true
+      - traefik.enable=true
 
-        - traefik.tcp.routers.rabbitmq.rule=HostSNI(`*`)
-        - traefik.tcp.routers.rabbitmq.entrypoints=rabbitmq
-        - traefik.tcp.routers.rabbitmq.service=rabbitmq
-        - traefik.tcp.services.rabbitmq.loadbalancer.server.port=5672
+      - traefik.tcp.routers.rabbitmq.rule=HostSNI(`*`)
+      - traefik.tcp.routers.rabbitmq.entrypoints=rabbitmq
+      - traefik.tcp.routers.rabbitmq.service=rabbitmq
+      - traefik.tcp.services.rabbitmq.loadbalancer.server.port=5672
 
-        - traefik.http.routers.rabbitmq-console.rule=Host(`rabbitmq.local`)
-        - traefik.http.routers.rabbitmq-console.entrypoints=http
-        - traefik.http.routers.rabbitmq-console.service=rabbitmq-console
-        - traefik.http.services.rabbitmq-console.loadbalancer.server.port=15672
+      - traefik.http.routers.rabbitmq-console.rule=Host(`rabbitmq.local`)
+      - traefik.http.routers.rabbitmq-console.entrypoints=http
+      - traefik.http.routers.rabbitmq-console.service=rabbitmq-console
+      - traefik.http.services.rabbitmq-console.loadbalancer.server.port=15672
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
 
