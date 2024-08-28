@@ -120,7 +120,7 @@ if [ -d "$FOLDER_NAME" ]; then
     # Copy the sample .env file
     cp .env.sample .env
     # Start Docker Compose
-    docker-compose up --build -d
+    docker compose up --build -d
 else
     echo "The git clone command didn't work properly. Please check the repository address and try again."
     exit 1
