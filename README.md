@@ -25,7 +25,7 @@ To start the development stack, run the following commands:
 git clone https://github.com/mosstar/mosstar-dev-stack.git
 cd mosstar-dev-stack
 cp .env.sample .env
-docker-compose up -d
+docker compose up -d
 ```
 
 After running these commands, the development stack will be up and running.  

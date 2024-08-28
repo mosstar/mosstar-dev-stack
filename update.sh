@@ -50,8 +50,8 @@ fi
 # restart the docker containers with or without build
 if [ "$SKIP_BUILD" = true ]; then
     echo "Starting Docker Compose without build..."
-    docker-compose up -d
+    docker compose up -d
 else
     echo "Starting Docker Compose with build..."
-    docker-compose up --build -d
+    docker compose up --build -d
 fi
