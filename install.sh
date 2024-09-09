@@ -25,14 +25,9 @@ while [[ "$#" -gt 0 ]]; do
     esac
 done
 
-# Check if Docker and Docker Compose are installed
+# Check if Docker is installed
 if ! command -v docker &> /dev/null; then
     echo "Docker not found. Please install Docker and try again."
-    exit 1
-fi
-
-if ! command -v docker-compose &> /dev/null; then
-    echo "Docker Compose not found. Please install Docker Compose and try again."
     exit 1
 fi
 
