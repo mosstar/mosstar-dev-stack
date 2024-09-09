@@ -1,6 +1,6 @@
 # Mosstar Development Stack
 
-This repository contains the docker-compose file for the development stack of Mosstar projects.
+This repository contains the docker compose file for the development stack of Mosstar projects.
 
 ## Installation
 
