@@ -14,6 +14,7 @@ services:
       - "${REDIS_PORT}:6379" # Redis
       - "${RABBITMQ_PORT}:5672" # RabbitMQ
       - "${MONGODB_PORT}:27017" # MongoDB
+      - "${SMTP_PORT}:1025" # SMTP (Mailpit)
     labels:
       - traefik.enable=true
       - traefik.http.routers.traefik.rule=Host(`traefik.local`)
@@ -246,6 +247,29 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
 
+  mailpit:
+    image: axllent/mailpit:v1.20.4
+    restart: always
+    environment:
+      TZ: "Europe/Istanbul"
+      MP_DATABASE: "/data/database.db"
+      MP_SMTP_AUTH: "${DEFAULT_USERNAME}:${DEFAULT_PASSWORD}"
+      MP_SMTP_AUTH_ALLOW_INSECURE: "true"
+    labels:
+      - traefik.enable=true
+
+      - traefik.tcp.routers.mailpit.rule=HostSNI(`*`)
+      - traefik.tcp.routers.mailpit.entrypoints=mailpit
+      - traefik.tcp.routers.mailpit.service=mailpit
+      - traefik.tcp.services.mailpit.loadbalancer.server.port=1025
+
+      - traefik.http.routers.mailpit-ui.rule=Host(`mailpit.local`)
+      - traefik.http.routers.mailpit-ui.entrypoints=http
+      - traefik.http.routers.mailpit-ui.service=mailpit-ui
+      - traefik.http.services.mailpit-ui.loadbalancer.server.port=8025
+    volumes:
+      - mailpit-data:/data
+
 volumes:
   portainer-data:
   postgres-data:
@@ -258,3 +282,4 @@ volumes:
   rabbitmq-data:
   mongo-data:
   grafana-data:
+  mailpit-data:
