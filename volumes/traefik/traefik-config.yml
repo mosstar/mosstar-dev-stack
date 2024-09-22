@@ -19,6 +19,8 @@ entryPoints:
     address: ":5672"
   mongodb:
     address: ":27017"
+  mailpit:
+    address: ":1025"
 
 providers:
   docker:
