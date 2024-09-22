@@ -232,6 +232,20 @@ services:
     volumes:
       - mongo-data:/data/db
 
+  grafana:
+    image: grafana/grafana:11.2.0
+    restart: always
+    environment:
+      GF_SECURITY_ADMIN_USER: ${DEFAULT_USERNAME}
+      GF_SECURITY_ADMIN_PASSWORD: ${DEFAULT_PASSWORD}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.grafana.rule=Host(`grafana.local`)
+      - traefik.http.routers.grafana.entrypoints=http
+      - traefik.http.services.grafana.loadbalancer.server.port=3000
+    volumes:
+      - grafana-data:/var/lib/grafana
+
 volumes:
   portainer-data:
   postgres-data:
@@ -243,3 +257,4 @@ volumes:
   elasticsearch-data:
   rabbitmq-data:
   mongo-data:
+  grafana-data:
