@@ -82,6 +82,7 @@ The development stack includes the following services:
 | Navicat                   | Database Client  | https://www.navicat.com/en/products            |
 | DBeaver                   | Database Client  | https://dbeaver.io/                            |
 | MongoDB Compass           | MongoDB Client   | https://www.mongodb.com/products/tools/compass |
+| Redis Insight             | Redis Client     | https://redis.io/insight/                      |
 | Google Chrome             | Web Browser      | https://www.google.com/chrome/                 |
 | Firefox Developer Edition | Web Browser      | https://www.mozilla.org/tr/firefox/developer/  |
 | Zoom                      | Communication    | https://zoom.us/                               |
