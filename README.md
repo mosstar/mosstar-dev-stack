@@ -85,9 +85,10 @@ The development stack includes the following services:
 | Redis Insight             | Redis Client     | https://redis.io/insight/                      |
 | Google Chrome             | Web Browser      | https://www.google.com/chrome/                 |
 | Firefox Developer Edition | Web Browser      | https://www.mozilla.org/tr/firefox/developer/  |
+| Figma                     | Design           | https://www.figma.com/                         |
 | Zoom                      | Communication    | https://zoom.us/                               |
 | Google Meet               | Communication    | https://meet.google.com/                       |
-| Figma                     | Design           | https://www.figma.com/                         |
+| AnyDesk                   | Remote Control   | https://anydesk.com/downloads                  |
 
 ## Customization
 
