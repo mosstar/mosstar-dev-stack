@@ -2,7 +2,7 @@ name: mosstar-dev-stack
 
 services:
   traefik:
-    image: traefik:v2.11.8
+    image: traefik:v2.11.12
     restart: always
     environment:
       TZ: "Europe/Istanbul"
@@ -24,7 +24,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
   portainer:
-    image: portainer/portainer-ce:2.21.2
+    image: portainer/portainer-ce:2.21.3
     restart: always
     command: -H unix:///var/run/docker.sock
     labels:
@@ -68,7 +68,7 @@ services:
       - ./volumes/pgadmin/servers.json:/pgadmin4/servers.json
 
   redis:
-    image: redis:7.4.0-alpine
+    image: redis:7.4.1-alpine
     restart: always
     labels:
       - traefik.enable=true
@@ -234,7 +234,7 @@ services:
       - mongo-data:/data/db
 
   grafana:
-    image: grafana/grafana:11.2.0
+    image: grafana/grafana:11.2.2
     restart: always
     environment:
       GF_SECURITY_ADMIN_USER: ${DEFAULT_USERNAME}
@@ -248,7 +248,7 @@ services:
       - grafana-data:/var/lib/grafana
 
   mailpit:
-    image: axllent/mailpit:v1.20.4
+    image: axllent/mailpit:v1.20.5
     restart: always
     environment:
       TZ: "Europe/Istanbul"
