@@ -258,10 +258,10 @@ services:
     labels:
       - traefik.enable=true
 
-      - traefik.tcp.routers.mailpit.rule=HostSNI(`*`)
-      - traefik.tcp.routers.mailpit.entrypoints=mailpit
-      - traefik.tcp.routers.mailpit.service=mailpit
-      - traefik.tcp.services.mailpit.loadbalancer.server.port=1025
+      - traefik.tcp.routers.mailpit-smtp.rule=HostSNI(`*`)
+      - traefik.tcp.routers.mailpit-smtp.entrypoints=smtp
+      - traefik.tcp.routers.mailpit-smtp.service=mailpit-smtp
+      - traefik.tcp.services.mailpit-smtp.loadbalancer.server.port=1025
 
       - traefik.http.routers.mailpit-ui.rule=Host(`mailpit.local`)
       - traefik.http.routers.mailpit-ui.entrypoints=http
