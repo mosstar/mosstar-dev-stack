@@ -1,0 +1,22 @@
+name: Notify Google Chat on Push
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  notify-chat:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Send Google Chat Message
+        env:
+          WORKSPACE_WEBHOOK_URL: ${{ secrets.WORKSPACE_WEBHOOK_URL }}
+        run: |
+          CHANGES=$(jq -r '.commits[] | "- \(.message)"' < $GITHUB_EVENT_PATH)
+          CHANGES=$(echo "$CHANGES" | sed ':a;N;$!ba;s/\n/\\n/g')
+          REPO_URL=https://github.com/${{ github.repository }}
+          curl -H "Content-Type: application/json" -X POST -d "{\"text\": \"@${GITHUB_ACTOR}, mosstar-dev-stack projesi için güncellemeler yayınlamıştır.\n\nYapılan değişiklikler:\n${CHANGES}\n\n✅ Lütfen yerel geliştirme ortamınızı güncellemek için ana dizinde \`./update.sh\` komutunu çalıştırın.\"}" $WORKSPACE_WEBHOOK_URL
