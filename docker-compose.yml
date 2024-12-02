@@ -24,7 +24,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
   portainer:
-    image: portainer/portainer-ce:2.21.4
+    image: portainer/portainer-ce:2.24.0
     restart: always
     command: -H unix:///var/run/docker.sock
     labels:
