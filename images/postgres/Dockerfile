@@ -1,11 +1,11 @@
 FROM postgres:16.3-bullseye
 
 # Set the environment variables
-ENV POSTGRES_DB mosstar
-ENV POSTGRES_USER mosstar
-ENV POSTGRES_PASSWORD mosstar123
+ENV POSTGRES_DB=mosstar
+ENV POSTGRES_USER=mosstar
+ENV POSTGRES_PASSWORD=mosstar123
 
-ENV LANG tr_TR.utf8
+ENV LANG=tr_TR.utf8
 
 # Install required packages
 RUN apt-get update \
