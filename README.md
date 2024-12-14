@@ -88,6 +88,7 @@ The development stack includes the following services:
 | Figma                     | Design           | https://www.figma.com/                         |
 | Zoom                      | Communication    | https://zoom.us/                               |
 | Google Meet               | Communication    | https://meet.google.com/                       |
+| Google Chat               | Communication    | https://chat.google.com/                       |
 | AnyDesk                   | Remote Control   | https://anydesk.com/downloads                  |
 
 ## Customization
