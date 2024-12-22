@@ -24,7 +24,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
   portainer:
-    image: portainer/portainer-ce:2.24.1
+    image: portainer/portainer-ce:2.25.1
     restart: always
     command: -H unix:///var/run/docker.sock
     labels:
@@ -199,7 +199,7 @@ services:
       - traefik.http.services.apm-server.loadbalancer.server.port=8200
 
   rabbitmq:
-    image: rabbitmq:4.0.4-management-alpine
+    image: rabbitmq:4.0.5-management-alpine
     restart: always
     environment:
       RABBITMQ_DEFAULT_USER: ${DEFAULT_USERNAME}
@@ -248,7 +248,7 @@ services:
       - grafana-data:/var/lib/grafana
 
   mailpit:
-    image: axllent/mailpit:v1.21.7
+    image: axllent/mailpit:v1.21.8
     restart: always
     environment:
       TZ: "Europe/Istanbul"
