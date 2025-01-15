@@ -25,7 +25,7 @@ services:
 
   portainer:
     image: portainer/portainer-ce:2.26.0
-    restart: always
+    restart: unless-stopped
     command: -H unix:///var/run/docker.sock
     labels:
       - traefik.enable=true
@@ -54,7 +54,7 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4:8.14
-    restart: always
+    restart: unless-stopped
     environment:
       PGADMIN_DEFAULT_EMAIL: ${DEFAULT_USER_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${DEFAULT_PASSWORD}
@@ -80,7 +80,7 @@ services:
 
   geoserver:
     image: kartoza/geoserver:2.25.2
-    restart: always
+    restart: unless-stopped
     environment:
       GEOSERVER_ADMIN_USER: ${DEFAULT_USERNAME}
       GEOSERVER_ADMIN_PASSWORD: ${DEFAULT_PASSWORD}
@@ -143,7 +143,7 @@ services:
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
-    restart: always
+    restart: unless-stopped
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=true
@@ -160,7 +160,7 @@ services:
 
   kibana:
     image: docker.elastic.co/kibana/kibana:${ELASTIC_VERSION}
-    restart: always
+    restart: unless-stopped
     depends_on:
       - elasticsearch
     environment:
@@ -177,7 +177,7 @@ services:
 
   apm-server:
     image: docker.elastic.co/apm/apm-server:${ELASTIC_VERSION}
-    restart: always
+    restart: unless-stopped
     depends_on:
       - elasticsearch
       - kibana
@@ -200,7 +200,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:4.0.5-management-alpine
-    restart: always
+    restart: unless-stopped
     environment:
       RABBITMQ_DEFAULT_USER: ${DEFAULT_USERNAME}
       RABBITMQ_DEFAULT_PASS: ${DEFAULT_PASSWORD}
@@ -221,7 +221,7 @@ services:
 
   mongo:
     image: mongo:7.0.16
-    restart: always
+    restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DEFAULT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${DEFAULT_PASSWORD}
@@ -235,7 +235,7 @@ services:
 
   grafana:
     image: grafana/grafana:11.4.0
-    restart: always
+    restart: unless-stopped
     environment:
       GF_SECURITY_ADMIN_USER: ${DEFAULT_USERNAME}
       GF_SECURITY_ADMIN_PASSWORD: ${DEFAULT_PASSWORD}
