@@ -54,7 +54,7 @@ fi
 configure_dns() {
     # Configure dnsmasq
     CONFIG_LINE="address=/.local/127.0.0.1"
-    CONFIG_FILE="/opt/homebrew/etc/dnsmasq.conf"
+    CONFIG_FILE="$(brew --prefix)/etc/dnsmasq.conf"
 
     if ! grep -qxF "$CONFIG_LINE" "$CONFIG_FILE"; then
         echo "Adding configuration to dnsmasq..."
