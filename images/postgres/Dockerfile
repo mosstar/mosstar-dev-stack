@@ -6,6 +6,8 @@ ENV POSTGRES_USER=mosstar
 ENV POSTGRES_PASSWORD=mosstar123
 
 ENV LANG=tr_TR.utf8
+ENV TZ=Europe/Istanbul
+ENV PGTZ=Europe/Istanbul
 
 # Install required packages
 RUN apt-get update \
