@@ -10,4 +10,5 @@
 127.0.0.1 apm.local
 127.0.0.1 rabbitmq.local
 127.0.0.1 grafana.local
+127.0.0.1 n8n.local
 127.0.0.1 mailpit.local
