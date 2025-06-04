@@ -247,6 +247,28 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
 
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:1.95.3
+    restart: unless-stopped
+    environment:
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_DATABASE: n8n
+      DB_POSTGRESDB_HOST: postgres
+      DB_POSTGRESDB_PORT: 5432
+      DB_POSTGRESDB_USER: n8n
+      DB_POSTGRESDB_SCHEMA: public
+      DB_POSTGRESDB_PASSWORD: n8n
+      N8N_SECURE_COOKIE: false
+      GENERIC_TIMEZONE: ${DEFAULT_TIMEZONE}
+      TZ: ${DEFAULT_TIMEZONE}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.n8n.rule=Host(`n8n.local`)
+      - traefik.http.routers.n8n.entrypoints=http
+      - traefik.http.services.n8n.loadbalancer.server.port=5678
+    volumes:
+      - n8n-data:/home/node/.n8n
+
   mailpit:
     image: axllent/mailpit:v1.25.1
     restart: always
@@ -282,4 +304,5 @@ volumes:
   rabbitmq-data:
   mongo-data:
   grafana-data:
+  n8n-data:
   mailpit-data:
