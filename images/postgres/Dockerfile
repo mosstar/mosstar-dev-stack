@@ -23,5 +23,6 @@ RUN localedef -i tr_TR -c -f UTF-8 -A /usr/share/locale/locale.alias tr_TR.UTF-8
 RUN mkdir -p /docker-entrypoint-initdb.d
 COPY ./enable_postgis.sh /docker-entrypoint-initdb.d/10_postgis.sh
 COPY ./create_keycloak_db.sh /docker-entrypoint-initdb.d/15_keycloak.sh
+COPY ./create_n8n_db.sh /docker-entrypoint-initdb.d/20_n8n.sh
 
 EXPOSE 5432
