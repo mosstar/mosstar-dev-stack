@@ -65,6 +65,7 @@ The development stack includes the following services:
 | kibana            | http://kibana.local              | elastic           | mosstar123 |
 | apm-server        | http://apm.local                 | -                 | mosstar123 |
 | grafana           | http://grafana.local             | mosstar           | mosstar123 |
+| n8n               | http://n8n.local                 | -                 | -          |
 | mailpit (ui)      | http://mailpit.local             | -                 | -          |
 | mailpit (smtp)    | localhost:1025                   | mosstar           | mosstar123 |
 
