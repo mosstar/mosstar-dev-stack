@@ -12,7 +12,7 @@ installation guide [here](https://docs.docker.com/desktop/).
 To start the development stack, run the following command:
 
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mosstar/mosstar-dev-stack/master/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mosstar/mosstar-dev-stack/main/install.sh)"
 ```
 
 This command will clone the repository and start the development stack.

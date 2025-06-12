@@ -38,8 +38,8 @@ if [ "$SKIP_PULL" = false ]; then
         exit 1
     fi
 
-    git checkout master
-    git pull origin master
+    git checkout main
+    git pull origin main
 fi
 
 # recreate the .env file if requested

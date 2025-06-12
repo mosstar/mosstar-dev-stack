@@ -3,7 +3,7 @@ name: Notify Google Chat on Push
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   notify-chat:
