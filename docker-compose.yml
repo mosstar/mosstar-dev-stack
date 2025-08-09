@@ -248,7 +248,7 @@ services:
       - grafana-data:/var/lib/grafana
 
   n8n:
-    image: docker.n8n.io/n8nio/n8n:1.95.3
+    image: docker.n8n.io/n8nio/n8n:1.105.4
     restart: unless-stopped
     environment:
       DB_TYPE: postgresdb
