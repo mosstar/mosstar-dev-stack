@@ -79,11 +79,12 @@ services:
       - redis-data:/data
 
   geoserver:
-    image: kartoza/geoserver:2.27.1
+    image: kartoza/geoserver:2.27.2
     restart: unless-stopped
     environment:
       GEOSERVER_ADMIN_USER: ${DEFAULT_USERNAME}
       GEOSERVER_ADMIN_PASSWORD: ${DEFAULT_PASSWORD}
+      ROOT_WEBAPP_REDIRECT: true
     labels:
       - traefik.enable=true
       - traefik.http.routers.geoserver.rule=Host(`geoserver.local`)
