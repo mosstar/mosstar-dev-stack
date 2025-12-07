@@ -2,7 +2,7 @@ name: mosstar-dev-stack
 
 services:
   traefik:
-    image: traefik:v3.5.2
+    image: traefik:v3.6.4
     restart: always
     environment:
       TZ: "Europe/Istanbul"
@@ -24,7 +24,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
   portainer:
-    image: portainer/portainer-ce:2.33.2
+    image: portainer/portainer-ce:2.33.5
     restart: always
     command: -H unix:///var/run/docker.sock
     labels:
@@ -53,7 +53,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
   pgadmin:
-    image: dpage/pgadmin4:9.8
+    image: dpage/pgadmin4:9.10
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: ${DEFAULT_USER_EMAIL}
@@ -68,7 +68,7 @@ services:
       - ./volumes/pgadmin/servers.json:/pgadmin4/servers.json
 
   redis:
-    image: redis:8.2.1-alpine
+    image: redis:8.4.0-alpine
     restart: always
     labels:
       - traefik.enable=true
@@ -200,7 +200,7 @@ services:
       - traefik.http.services.apm-server.loadbalancer.server.port=8200
 
   rabbitmq:
-    image: rabbitmq:4.1.4-management-alpine
+    image: rabbitmq:4.2.1-management-alpine
     restart: unless-stopped
     environment:
       RABBITMQ_DEFAULT_USER: ${DEFAULT_USERNAME}
@@ -221,7 +221,7 @@ services:
       - rabbitmq-data:/var/lib/rabbitmq
 
   mongo:
-    image: mongo:7.0.24
+    image: mongo:7.0.26
     restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DEFAULT_USERNAME}
@@ -235,7 +235,7 @@ services:
       - mongo-data:/data/db
 
   grafana:
-    image: grafana/grafana:12.2.0
+    image: grafana/grafana:12.3.0
     restart: unless-stopped
     environment:
       GF_SECURITY_ADMIN_USER: ${DEFAULT_USERNAME}
@@ -271,7 +271,7 @@ services:
       - n8n-data:/home/node/.n8n
 
   mailpit:
-    image: axllent/mailpit:v1.27.8
+    image: axllent/mailpit:v1.28.0
     restart: always
     environment:
       TZ: "Europe/Istanbul"
