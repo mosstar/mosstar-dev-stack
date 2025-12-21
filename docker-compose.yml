@@ -221,7 +221,7 @@ services:
       - rabbitmq-data:/var/lib/rabbitmq
 
   mongo:
-    image: mongo:7.0.26
+    image: mongo:8.2.3
     restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DEFAULT_USERNAME}
