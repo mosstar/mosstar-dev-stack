@@ -2,7 +2,7 @@ name: mosstar-dev-stack
 
 services:
   traefik:
-    image: traefik:v3.6.5
+    image: traefik:v3.6.7
     restart: always
     environment:
       TZ: "Europe/Istanbul"
@@ -24,7 +24,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
   portainer:
-    image: portainer/portainer-ce:2.33.6
+    image: portainer/portainer-ce:2.38.0
     restart: always
     command: -H unix:///var/run/docker.sock
     labels:
@@ -200,7 +200,7 @@ services:
       - traefik.http.services.apm-server.loadbalancer.server.port=8200
 
   rabbitmq:
-    image: rabbitmq:4.2.2-management-alpine
+    image: rabbitmq:4.2.3-management-alpine
     restart: unless-stopped
     environment:
       RABBITMQ_DEFAULT_USER: ${DEFAULT_USERNAME}
@@ -221,7 +221,7 @@ services:
       - rabbitmq-data:/var/lib/rabbitmq
 
   mongo:
-    image: mongo:8.2.3
+    image: mongo:8.2.4
     restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DEFAULT_USERNAME}
@@ -235,7 +235,7 @@ services:
       - mongo-data:/data/db
 
   grafana:
-    image: grafana/grafana:12.3.1
+    image: grafana/grafana:12.3.2
     restart: unless-stopped
     environment:
       GF_SECURITY_ADMIN_USER: ${DEFAULT_USERNAME}
@@ -271,7 +271,7 @@ services:
       - n8n-data:/home/node/.n8n
 
   mailpit:
-    image: axllent/mailpit:v1.28.0
+    image: axllent/mailpit:v1.29.0
     restart: always
     environment:
       TZ: "Europe/Istanbul"
