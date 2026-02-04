@@ -3,11 +3,9 @@ name: mosstar-dev-stack
 services:
   traefik:
     image: traefik:v3.6.7
-    restart: always
-    environment:
-      TZ: "Europe/Istanbul"
     command:
       - "--configFile=/etc/traefik/traefik.yml"
+    restart: always
     ports:
       - "${HTTP_PORT}:80" # HTTP
       - "${POSTGRES_PORT}:5432" # Postgres
@@ -15,32 +13,36 @@ services:
       - "${RABBITMQ_PORT}:5672" # RabbitMQ
       - "${MONGODB_PORT}:27017" # MongoDB
       - "${SMTP_PORT}:1025" # SMTP (Mailpit)
+    volumes:
+      - ./volumes/traefik/traefik-config.yml:/etc/traefik/traefik.yml
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      TZ: "Europe/Istanbul"
     labels:
       - traefik.enable=true
       - traefik.http.routers.traefik.rule=Host(`traefik.local`)
       - traefik.http.routers.traefik.service=api@internal
-    volumes:
-      - ./volumes/traefik/traefik-config.yml:/etc/traefik/traefik.yml
-      - /var/run/docker.sock:/var/run/docker.sock:ro
 
   portainer:
     image: portainer/portainer-ce:2.38.0
-    restart: always
     command: -H unix:///var/run/docker.sock
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - portainer-data:/data
     labels:
       - traefik.enable=true
       - traefik.http.routers.portainer.rule=Host(`portainer.local`)
       - traefik.http.routers.portainer.entrypoints=http
       - traefik.http.services.portainer.loadbalancer.server.port=9000
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - portainer-data:/data
 
   postgres:
     build:
       context: ./images/postgres
       dockerfile: Dockerfile
     restart: always
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${DEFAULT_USERNAME}
       POSTGRES_PASSWORD: ${DEFAULT_PASSWORD}
@@ -49,12 +51,13 @@ services:
       - traefik.tcp.routers.postgres.rule=HostSNI(`*`)
       - traefik.tcp.routers.postgres.entrypoints=postgres
       - traefik.tcp.services.postgres.loadbalancer.server.port=5432
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
 
   pgadmin:
     image: dpage/pgadmin4:9.11
     restart: always
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+      - ./volumes/pgadmin/servers.json:/pgadmin4/servers.json
     environment:
       PGADMIN_DEFAULT_EMAIL: ${DEFAULT_USER_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${DEFAULT_PASSWORD}
@@ -63,24 +66,23 @@ services:
       - traefik.http.routers.pgadmin.rule=Host(`pgadmin.local`)
       - traefik.http.routers.pgadmin.entrypoints=http
       - traefik.http.services.pgadmin.loadbalancer.server.port=80
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
-      - ./volumes/pgadmin/servers.json:/pgadmin4/servers.json
 
   redis:
     image: redis:8.4.0-alpine
     restart: always
+    volumes:
+      - redis-data:/data
     labels:
       - traefik.enable=true
       - traefik.tcp.routers.redis.rule=HostSNI(`*`)
       - traefik.tcp.routers.redis.entrypoints=redis
       - traefik.tcp.services.redis.loadbalancer.server.port=6379
-    volumes:
-      - redis-data:/data
 
   geoserver:
     image: kartoza/geoserver:2.27.2
     restart: unless-stopped
+    volumes:
+      - geoserver-data:/opt/geoserver/data_dir
     environment:
       GEOSERVER_ADMIN_USER: ${DEFAULT_USERNAME}
       GEOSERVER_ADMIN_PASSWORD: ${DEFAULT_PASSWORD}
@@ -90,17 +92,17 @@ services:
       - traefik.http.routers.geoserver.rule=Host(`geoserver.local`)
       - traefik.http.routers.geoserver.entrypoints=http
       - traefik.http.services.geoserver.loadbalancer.server.port=8080
-    volumes:
-      - geoserver-data:/opt/geoserver/data_dir
 
   minio:
     image: minio/minio:RELEASE.2025-09-07T16-13-09Z
+    command: server /data --console-address ":9001"
     restart: always
+    volumes:
+      - minio-data:/data
     environment:
       MINIO_ROOT_USER: ${DEFAULT_USERNAME}
       MINIO_ROOT_PASSWORD: ${DEFAULT_PASSWORD}
       MINIO_BROWSER_REDIRECT_URL: http://minio-console.local
-    command: server /data --console-address ":9001"
     labels:
       - traefik.enable=true
 
@@ -113,15 +115,17 @@ services:
       - traefik.http.routers.minio-console.entrypoints=http
       - traefik.http.routers.minio-console.service=minio-console
       - traefik.http.services.minio-console.loadbalancer.server.port=9001
-    volumes:
-      - minio-data:/data
 
   keycloak:
     image: quay.io/keycloak/keycloak:25.0.2
+    command: "start-dev"
     restart: always
     depends_on:
       - postgres
-    command: "start-dev"
+    volumes:
+      - keycloak-data:/opt/keycloak
+      - ./volumes/keycloak/idm-theme/:/opt/keycloak/themes/idmapp/
+      - ./volumes/keycloak/uab-theme/:/opt/keycloak/themes/uab/
     environment:
       # DB Configuration
       KC_DB: postgres
@@ -137,14 +141,12 @@ services:
       - traefik.http.routers.keycloak.rule=Host(`keycloak.local`)
       - traefik.http.routers.keycloak.entrypoints=http
       - traefik.http.services.keycloak.loadbalancer.server.port=8080
-    volumes:
-      - keycloak-data:/opt/keycloak
-      - ./volumes/keycloak/idm-theme/:/opt/keycloak/themes/idmapp/
-      - ./volumes/keycloak/uab-theme/:/opt/keycloak/themes/uab/
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
     restart: unless-stopped
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=true
@@ -156,8 +158,6 @@ services:
       - traefik.http.routers.elasticsearch.rule=Host(`elasticsearch.local`)
       - traefik.http.routers.elasticsearch.entrypoints=http
       - traefik.http.services.elasticsearch.loadbalancer.server.port=9200
-    volumes:
-      - elasticsearch-data:/usr/share/elasticsearch/data
 
   kibana:
     image: docker.elastic.co/kibana/kibana:${ELASTIC_VERSION}
@@ -165,7 +165,6 @@ services:
     depends_on:
       - elasticsearch
     environment:
-      ELASTICSEARCH_URL: http://elasticsearch:9200
       ELASTICSEARCH_HOSTS: http://elasticsearch:9200
       ELASTICSEARCH_USERNAME: elastic
       ELASTICSEARCH_PASSWORD: ${DEFAULT_PASSWORD}
@@ -187,8 +186,6 @@ services:
         -E apm-server.rum.enabled=true
         -E setup.kibana.host=kibana:5601
         -E setup.template.settings.index.number_of_replicas=0
-        -E apm-server.kibana.enabled=true
-        -E apm-server.kibana.host=kibana:5601
         -E output.elasticsearch.hosts=["elasticsearch:9200"]
         -E output.elasticsearch.username=elastic
         -E output.elasticsearch.password=$DEFAULT_PASSWORD
@@ -202,6 +199,8 @@ services:
   rabbitmq:
     image: rabbitmq:4.2.3-management-alpine
     restart: unless-stopped
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: ${DEFAULT_USERNAME}
       RABBITMQ_DEFAULT_PASS: ${DEFAULT_PASSWORD}
@@ -217,12 +216,12 @@ services:
       - traefik.http.routers.rabbitmq-console.entrypoints=http
       - traefik.http.routers.rabbitmq-console.service=rabbitmq-console
       - traefik.http.services.rabbitmq-console.loadbalancer.server.port=15672
-    volumes:
-      - rabbitmq-data:/var/lib/rabbitmq
 
   mongo:
     image: mongo:8.2.4
     restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DEFAULT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${DEFAULT_PASSWORD}
@@ -231,12 +230,12 @@ services:
       - traefik.tcp.routers.mongodb.rule=HostSNI(`*`)
       - traefik.tcp.routers.mongodb.entrypoints=mongodb
       - traefik.tcp.services.mongodb.loadbalancer.server.port=27017
-    volumes:
-      - mongo-data:/data/db
 
   grafana:
     image: grafana/grafana:12.3.2
     restart: unless-stopped
+    volumes:
+      - grafana-data:/var/lib/grafana
     environment:
       GF_SECURITY_ADMIN_USER: ${DEFAULT_USERNAME}
       GF_SECURITY_ADMIN_PASSWORD: ${DEFAULT_PASSWORD}
@@ -245,12 +244,12 @@ services:
       - traefik.http.routers.grafana.rule=Host(`grafana.local`)
       - traefik.http.routers.grafana.entrypoints=http
       - traefik.http.services.grafana.loadbalancer.server.port=3000
-    volumes:
-      - grafana-data:/var/lib/grafana
 
   n8n:
     image: docker.n8n.io/n8nio/n8n:1.105.4
     restart: unless-stopped
+    volumes:
+      - n8n-data:/home/node/.n8n
     environment:
       DB_TYPE: postgresdb
       DB_POSTGRESDB_DATABASE: n8n
@@ -267,12 +266,12 @@ services:
       - traefik.http.routers.n8n.rule=Host(`n8n.local`)
       - traefik.http.routers.n8n.entrypoints=http
       - traefik.http.services.n8n.loadbalancer.server.port=5678
-    volumes:
-      - n8n-data:/home/node/.n8n
 
   mailpit:
     image: axllent/mailpit:v1.29.0
     restart: always
+    volumes:
+      - mailpit-data:/data
     environment:
       TZ: "Europe/Istanbul"
       MP_DATABASE: "/data/database.db"
@@ -290,8 +289,6 @@ services:
       - traefik.http.routers.mailpit-ui.entrypoints=http
       - traefik.http.routers.mailpit-ui.service=mailpit-ui
       - traefik.http.services.mailpit-ui.loadbalancer.server.port=8025
-    volumes:
-      - mailpit-data:/data
 
 volumes:
   portainer-data:
