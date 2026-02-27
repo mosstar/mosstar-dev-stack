@@ -7,6 +7,7 @@ usage() {
     echo "  --no-clone       Skip cloning the repository"
     echo "  --no-configure   Skip configuring dnsmasq and resolver"
     echo "  --no-install     Skip installing Homebrew and dnsmasq"
+    echo "  --tld <value>    Set the domain TLD (default: local)"
     exit 0
 }
 
@@ -14,6 +15,7 @@ usage() {
 SKIP_INSTALL=false
 SKIP_CONFIGURE=false
 SKIP_CLONE=false
+LOCAL_TLD="local"
 
 while [[ "$#" -gt 0 ]]; do
     case "$1" in
@@ -21,6 +23,7 @@ while [[ "$#" -gt 0 ]]; do
         --no-install) SKIP_INSTALL=true; shift ;;
         --no-configure) SKIP_CONFIGURE=true; shift ;;
         --no-clone) SKIP_CLONE=true; shift ;;
+        --tld) LOCAL_TLD="$2"; shift 2 ;;
         *) echo "Unknown option: $1"; usage ;;
     esac
 done
@@ -53,7 +56,7 @@ fi
 
 configure_dns() {
     # Configure dnsmasq
-    CONFIG_LINE="address=/.local/127.0.0.1"
+    CONFIG_LINE="address=/.$LOCAL_TLD/127.0.0.1"
     CONFIG_FILE="$(brew --prefix)/etc/dnsmasq.conf"
 
     if ! grep -qxF "$CONFIG_LINE" "$CONFIG_FILE"; then
@@ -71,7 +74,7 @@ configure_dns() {
     sudo mkdir -p "$RESOLVER_DIR"
 
     if ! grep -qxF "$RESOLVER_CONTENT" "$RESOLVER_FILE"; then
-        echo "Configuring DNS resolver for .local domains..."
+        echo "Configuring DNS resolver for .$LOCAL_TLD domains..."
         echo "$RESOLVER_CONTENT" | sudo tee "$RESOLVER_FILE"
     fi
 }
@@ -114,6 +117,10 @@ if [ -d "$FOLDER_NAME" ]; then
     cd $FOLDER_NAME || exit
     # Copy the sample .env file
     cp .env.sample .env
+    # Add TLD to environment file
+    echo "" >> .env
+    echo "# local domain" >> .env
+    echo "LOCAL_TLD=$LOCAL_TLD" >> .env
     # Start Docker Compose
     docker compose up --build -d
 else

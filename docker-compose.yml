@@ -20,7 +20,7 @@ services:
       TZ: "Europe/Istanbul"
     labels:
       - traefik.enable=true
-      - traefik.http.routers.traefik.rule=Host(`traefik.local`)
+      - traefik.http.routers.traefik.rule=Host(`traefik.${LOCAL_TLD-local}`)
       - traefik.http.routers.traefik.service=api@internal
 
   portainer:
@@ -32,7 +32,7 @@ services:
       - portainer-data:/data
     labels:
       - traefik.enable=true
-      - traefik.http.routers.portainer.rule=Host(`portainer.local`)
+      - traefik.http.routers.portainer.rule=Host(`portainer.${LOCAL_TLD-local}`)
       - traefik.http.routers.portainer.entrypoints=http
       - traefik.http.services.portainer.loadbalancer.server.port=9000
 
@@ -63,7 +63,7 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${DEFAULT_PASSWORD}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.pgadmin.rule=Host(`pgadmin.local`)
+      - traefik.http.routers.pgadmin.rule=Host(`pgadmin.${LOCAL_TLD-local}`)
       - traefik.http.routers.pgadmin.entrypoints=http
       - traefik.http.services.pgadmin.loadbalancer.server.port=80
 
@@ -89,7 +89,7 @@ services:
       ROOT_WEBAPP_REDIRECT: true
     labels:
       - traefik.enable=true
-      - traefik.http.routers.geoserver.rule=Host(`geoserver.local`)
+      - traefik.http.routers.geoserver.rule=Host(`geoserver.${LOCAL_TLD-local}`)
       - traefik.http.routers.geoserver.entrypoints=http
       - traefik.http.services.geoserver.loadbalancer.server.port=8080
 
@@ -106,12 +106,12 @@ services:
     labels:
       - traefik.enable=true
 
-      - traefik.http.routers.minio.rule=Host(`minio.local`)
+      - traefik.http.routers.minio.rule=Host(`minio.${LOCAL_TLD-local}`)
       - traefik.http.routers.minio.entrypoints=http
       - traefik.http.routers.minio.service=minio
       - traefik.http.services.minio.loadbalancer.server.port=9000
 
-      - traefik.http.routers.minio-console.rule=Host(`minio-console.local`)
+      - traefik.http.routers.minio-console.rule=Host(`minio-console.${LOCAL_TLD-local}`)
       - traefik.http.routers.minio-console.entrypoints=http
       - traefik.http.routers.minio-console.service=minio-console
       - traefik.http.services.minio-console.loadbalancer.server.port=9001
@@ -138,7 +138,7 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: ${DEFAULT_PASSWORD}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.keycloak.rule=Host(`keycloak.local`)
+      - traefik.http.routers.keycloak.rule=Host(`keycloak.${LOCAL_TLD-local}`)
       - traefik.http.routers.keycloak.entrypoints=http
       - traefik.http.services.keycloak.loadbalancer.server.port=8080
 
@@ -155,7 +155,7 @@ services:
       - ELASTIC_PASSWORD=${DEFAULT_PASSWORD}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.elasticsearch.rule=Host(`elasticsearch.local`)
+      - traefik.http.routers.elasticsearch.rule=Host(`elasticsearch.${LOCAL_TLD-local}`)
       - traefik.http.routers.elasticsearch.entrypoints=http
       - traefik.http.services.elasticsearch.loadbalancer.server.port=9200
 
@@ -171,7 +171,7 @@ services:
       SERVER_PUBLICBASEURL: http://kibana.local
     labels:
       - traefik.enable=true
-      - traefik.http.routers.kibana.rule=Host(`kibana.local`)
+      - traefik.http.routers.kibana.rule=Host(`kibana.${LOCAL_TLD-local}`)
       - traefik.http.routers.kibana.entrypoints=http
       - traefik.http.services.kibana.loadbalancer.server.port=5601
 
@@ -192,7 +192,7 @@ services:
         -E apm-server.auth.secret_token=$ELASTIC_APM_SECRET_TOKEN
     labels:
       - traefik.enable=true
-      - traefik.http.routers.apm-server.rule=Host(`apm.local`)
+      - traefik.http.routers.apm-server.rule=Host(`apm.${LOCAL_TLD-local}`)
       - traefik.http.routers.apm-server.entrypoints=http
       - traefik.http.services.apm-server.loadbalancer.server.port=8200
 
@@ -212,7 +212,7 @@ services:
       - traefik.tcp.routers.rabbitmq.service=rabbitmq
       - traefik.tcp.services.rabbitmq.loadbalancer.server.port=5672
 
-      - traefik.http.routers.rabbitmq-console.rule=Host(`rabbitmq.local`)
+      - traefik.http.routers.rabbitmq-console.rule=Host(`rabbitmq.${LOCAL_TLD-local}`)
       - traefik.http.routers.rabbitmq-console.entrypoints=http
       - traefik.http.routers.rabbitmq-console.service=rabbitmq-console
       - traefik.http.services.rabbitmq-console.loadbalancer.server.port=15672
@@ -241,7 +241,7 @@ services:
       GF_SECURITY_ADMIN_PASSWORD: ${DEFAULT_PASSWORD}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.grafana.rule=Host(`grafana.local`)
+      - traefik.http.routers.grafana.rule=Host(`grafana.${LOCAL_TLD-local}`)
       - traefik.http.routers.grafana.entrypoints=http
       - traefik.http.services.grafana.loadbalancer.server.port=3000
 
@@ -263,7 +263,7 @@ services:
       TZ: ${DEFAULT_TIMEZONE}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.n8n.rule=Host(`n8n.local`)
+      - traefik.http.routers.n8n.rule=Host(`n8n.${LOCAL_TLD-local}`)
       - traefik.http.routers.n8n.entrypoints=http
       - traefik.http.services.n8n.loadbalancer.server.port=5678
 
@@ -285,7 +285,7 @@ services:
       - traefik.tcp.routers.mailpit-smtp.service=mailpit-smtp
       - traefik.tcp.services.mailpit-smtp.loadbalancer.server.port=1025
 
-      - traefik.http.routers.mailpit-ui.rule=Host(`mailpit.local`)
+      - traefik.http.routers.mailpit-ui.rule=Host(`mailpit.${LOCAL_TLD-local}`)
       - traefik.http.routers.mailpit-ui.entrypoints=http
       - traefik.http.routers.mailpit-ui.service=mailpit-ui
       - traefik.http.services.mailpit-ui.loadbalancer.server.port=8025
