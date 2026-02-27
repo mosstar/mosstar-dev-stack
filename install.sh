@@ -68,7 +68,7 @@ configure_dns() {
 
     # Configure DNS resolver
     RESOLVER_DIR="/etc/resolver"
-    RESOLVER_FILE="$RESOLVER_DIR/local"
+    RESOLVER_FILE="$RESOLVER_DIR/$LOCAL_TLD"
     RESOLVER_CONTENT="nameserver 127.0.0.1"
 
     sudo mkdir -p "$RESOLVER_DIR"
