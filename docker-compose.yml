@@ -13,6 +13,7 @@ services:
       - "${RABBITMQ_PORT}:5672" # RabbitMQ
       - "${MONGODB_PORT}:27017" # MongoDB
       - "${SMTP_PORT}:1025" # SMTP (Mailpit)
+      - "${INFLUXDB_PORT}:8181" # InfluxDB3
     volumes:
       - ./volumes/traefik/traefik-config.yml:/etc/traefik/traefik.yml
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -290,6 +291,43 @@ services:
       - traefik.http.routers.mailpit-ui.service=mailpit-ui
       - traefik.http.services.mailpit-ui.loadbalancer.server.port=8025
 
+  influxdb:
+    image: influxdb:3.8.3-core
+    command:
+      - influxdb3
+      - serve
+      - --node-id=node0
+      - --object-store=file
+      - --admin-token-file=/etc/influxdb3/admin-token.json
+      - --data-dir=/var/lib/influxdb3/data
+      - --plugin-dir=/var/lib/influxdb3/plugins
+    restart: always
+    user: "root"
+    volumes:
+      - influxdb-data:/var/lib/influxdb3/data
+      - influxdb-plugins:/var/lib/influxdb3/plugins
+      - ./volumes/influxdb/admin-token.json:/etc/influxdb3/admin-token.json:ro
+    labels:
+      - traefik.enable=true
+      - traefik.tcp.routers.influxdb.rule=HostSNI(`*`)
+      - traefik.tcp.routers.influxdb.entrypoints=influxdb
+      - traefik.tcp.services.influxdb.loadbalancer.server.port=8181
+
+  influxdb-explorer:
+    image: influxdata/influxdb3-ui:1.6.3
+    command:
+      - --mode=admin
+    restart: unless-stopped
+    depends_on:
+      - influxdb
+    volumes:
+      - influxdb-explorer-data:/db
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.influxdb-explorer-ui.rule=Host(`influxdb.${LOCAL_TLD-local}`)
+      - traefik.http.routers.influxdb-explorer-ui.entrypoints=http
+      - traefik.http.services.influxdb-explorer-ui.loadbalancer.server.port=80
+
 volumes:
   portainer-data:
   postgres-data:
@@ -304,3 +342,6 @@ volumes:
   grafana-data:
   n8n-data:
   mailpit-data:
+  influxdb-data:
+  influxdb-plugins:
+  influxdb-explorer-data:

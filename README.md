@@ -28,7 +28,7 @@ cp .env.sample .env
 docker compose up -d
 ```
 
-After running these commands, the development stack will be up and running.  
+After running these commands, the development stack will be up and running.
 Copy `windows-hosts.txt` content and paste it to `C:\Windows\System32\drivers\etc\hosts` file.
 
 ## Update
@@ -39,8 +39,8 @@ To update the development stack, run the following command in the repository dir
 ./update.sh [--with-build] [--recreate-env] [--no-git-pull]
 ```
 
-The `--with-build` option will rebuild the images before starting the stack.  
-The `--recreate-env` option will recreate the `.env` file.  
+The `--with-build` option will rebuild the images before starting the stack.
+The `--recreate-env` option will recreate the `.env` file.
 The `--no-git-pull` option will prevent the script from pulling the latest changes from the repository.
 
 ## Services
@@ -65,6 +65,8 @@ The development stack includes the following services:
 | kibana            | http://kibana.local              | elastic           | mosstar123 |
 | apm-server        | http://apm.local                 | -                 | mosstar123 |
 | grafana           | http://grafana.local             | mosstar           | mosstar123 |
+| influxdb.         | localhost:8181                   | -                 | -          |
+| influxdb (ui)     | http://influxdb.local            | -                 | -          |
 | n8n               | http://n8n.local                 | -                 | -          |
 | mailpit (ui)      | http://mailpit.local             | -                 | -          |
 | mailpit (smtp)    | localhost:1025                   | mosstar           | mosstar123 |
