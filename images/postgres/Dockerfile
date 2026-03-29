@@ -39,5 +39,6 @@ RUN mkdir -p /docker-entrypoint-initdb.d
 COPY ./enable_extensions.sh /docker-entrypoint-initdb.d/10_extensions.sh
 COPY ./create_keycloak_db.sh /docker-entrypoint-initdb.d/15_keycloak.sh
 COPY ./create_n8n_db.sh /docker-entrypoint-initdb.d/20_n8n.sh
+COPY ./create_metabase_db.sh /docker-entrypoint-initdb.d/25_metabase.sh
 
 EXPOSE 5432

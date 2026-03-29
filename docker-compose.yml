@@ -328,6 +328,27 @@ services:
       - traefik.http.routers.influxdb-explorer-ui.entrypoints=http
       - traefik.http.services.influxdb-explorer-ui.loadbalancer.server.port=80
 
+  metabase:
+    image: metabase/metabase:v0.60.0.x
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    volumes:
+      - /dev/urandom:/dev/random:ro
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_HOST: postgres
+      MB_DB_PORT: 5432
+      MB_DB_DBNAME: metabase
+      MB_DB_USER: metabase
+      MB_DB_PASS: metabase
+      JAVA_TIMEZONE: Europe/Istanbul
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.metabase.rule=Host(`metabase.${LOCAL_TLD-local}`)
+      - traefik.http.routers.metabase.entrypoints=http
+      - traefik.http.services.metabase.loadbalancer.server.port=3000
+
 volumes:
   portainer-data:
   postgres-data:
