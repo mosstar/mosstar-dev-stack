@@ -23,6 +23,8 @@ entryPoints:
     address: ":1025"
   influxdb:
     address: ":8181"
+  seq:
+    address: ":5341"
 
 providers:
   docker:

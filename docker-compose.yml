@@ -14,6 +14,7 @@ services:
       - "${MONGODB_PORT}:27017" # MongoDB
       - "${SMTP_PORT}:1025" # SMTP (Mailpit)
       - "${INFLUXDB_PORT}:8181" # InfluxDB3
+      - "${SEQ_PORT}:5341" # Seq
     volumes:
       - ./volumes/traefik/traefik-config.yml:/etc/traefik/traefik.yml
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -328,6 +329,28 @@ services:
       - traefik.http.routers.influxdb-explorer-ui.entrypoints=http
       - traefik.http.services.influxdb-explorer-ui.loadbalancer.server.port=80
 
+  seq:
+    image: datalust/seq:2025.2
+    restart: unless-stopped
+    volumes:
+      - seq-data:/data
+    environment:
+      ACCEPT_EULA: "Y"
+      SEQ_PASSWORD: ${DEFAULT_PASSWORD}
+      SEQ_API_CANONICALURI: http://seq.${LOCAL_TLD-local}
+    labels:
+      - traefik.enable=true
+
+      - traefik.http.routers.seq-ui.rule=Host(`seq.${LOCAL_TLD-local}`)
+      - traefik.http.routers.seq-ui.entrypoints=http
+      - traefik.http.routers.seq-ui.service=seq-ui
+      - traefik.http.services.seq-ui.loadbalancer.server.port=80
+
+      - traefik.tcp.routers.seq-api.rule=HostSNI(`*`)
+      - traefik.tcp.routers.seq-api.entrypoints=seq
+      - traefik.tcp.routers.seq-api.service=seq-api
+      - traefik.tcp.services.seq-api.loadbalancer.server.port=5341
+
   metabase:
     image: metabase/metabase:v0.60.0.x
     restart: unless-stopped
@@ -363,6 +386,7 @@ volumes:
   grafana-data:
   n8n-data:
   mailpit-data:
+  seq-data:
   influxdb-data:
   influxdb-plugins:
   influxdb-explorer-data:
