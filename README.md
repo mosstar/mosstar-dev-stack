@@ -68,8 +68,11 @@ The development stack includes the following services:
 | influxdb          | localhost:8181                   | -                 | -          |
 | influxdb (ui)     | http://influxdb.local            | -                 | -          |
 | n8n               | http://n8n.local                 | -                 | -          |
-| mailpit (ui)      | http://mailpit.local             | -                 | -          |
 | mailpit (smtp)    | localhost:1025                   | mosstar           | mosstar123 |
+| mailpit (ui)      | http://mailpit.local             | -                 | -          |
+| seq               | localhost:5341                   | -                 | -          |
+| seq (ui)          | http://seq.local                 | -                 | -          |
+| metabase          | http://metabase.local            | -                 | -          |
 
 ## Development Tools and Programs Used in @mosstar
 

@@ -13,3 +13,5 @@
 127.0.0.1 n8n.local
 127.0.0.1 mailpit.local
 127.0.0.1 influxdb.local
+127.0.0.1 seq.local
+127.0.0.1 metabase.local
