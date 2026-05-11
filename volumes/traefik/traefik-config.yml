@@ -26,6 +26,12 @@ entryPoints:
   seq:
     address: ":5341"
 
+metrics:
+  prometheus:
+    addEntryPointsLabels: true
+    addRoutersLabels: true
+    addServicesLabels: true
+
 providers:
   docker:
     endpoint: "unix:///var/run/docker.sock"

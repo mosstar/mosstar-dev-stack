@@ -351,6 +351,22 @@ services:
       - traefik.tcp.routers.seq-api.service=seq-api
       - traefik.tcp.services.seq-api.loadbalancer.server.port=5341
 
+  prometheus:
+    image: prom/prometheus:v3.3.1
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.enable-lifecycle'
+    volumes:
+      - prometheus-data:/prometheus
+      - ./volumes/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.prometheus.rule=Host(`prometheus.${LOCAL_TLD-local}`)
+      - traefik.http.routers.prometheus.entrypoints=http
+      - traefik.http.services.prometheus.loadbalancer.server.port=9090
+
   metabase:
     image: metabase/metabase:v0.60.0.x
     restart: unless-stopped
@@ -390,3 +406,4 @@ volumes:
   influxdb-data:
   influxdb-plugins:
   influxdb-explorer-data:
+  prometheus-data:
