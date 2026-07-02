@@ -47,32 +47,32 @@ The `--no-git-pull` option will prevent the script from pulling the latest chang
 
 The development stack includes the following services:
 
-| Service           | Address                          | User Name         | Password   |
-|-------------------|----------------------------------|-------------------|------------|
-| Traefik Dashboard | http://traefik.local             | -                 | -          |
-| Portainer UI      | http://portainer.local           | -                 | -          |
-| postgres          | localhost:5432                   | mosstar           | mosstar123 |
-| mongodb           | localhost:27017                  | mosstar           | mosstar123 |
-| redis             | localhost:6379                   | -                 | -          |
-| rabbitmq          | localhost:5672                   | mosstar           | mosstar123 |
-| pgAdmin           | http://pgadmin.local             | mosstar@local.dev | mosstar123 |
-| rabbitmq console  | http://rabbitmq.local            | mosstar           | mosstar123 |
-| geoserver         | http://geoserver.local/geoserver | mosstar           | mosstar123 |
-| minio             | http://minio.local               | mosstar           | mosstar123 |
-| minio console     | http://minio-console.local       | mosstar           | mosstar123 |
-| keycloak          | http://keycloak.local            | mosstar           | mosstar123 |
-| elasticsearch     | http://elasticsearch.local       | elastic           | mosstar123 |
-| kibana            | http://kibana.local              | elastic           | mosstar123 |
-| apm-server        | http://apm.local                 | -                 | mosstar123 |
-| grafana           | http://grafana.local             | mosstar           | mosstar123 |
-| influxdb          | localhost:8181                   | -                 | -          |
-| influxdb (ui)     | http://influxdb.local            | -                 | -          |
-| n8n               | http://n8n.local                 | -                 | -          |
-| mailpit (smtp)    | localhost:1025                   | mosstar           | mosstar123 |
-| mailpit (ui)      | http://mailpit.local             | -                 | -          |
-| seq               | localhost:5341                   | -                 | -          |
-| seq (ui)          | http://seq.local                 | -                 | -          |
-| metabase          | http://metabase.local            | -                 | -          |
+| Service           | Address                             | User Name         | Password   |
+|-------------------|-------------------------------------|-------------------|------------|
+| Traefik Dashboard | http://traefik.internal             | -                 | -          |
+| Portainer UI      | http://portainer.internal           | -                 | -          |
+| postgres          | localhost:5432                      | mosstar           | mosstar123 |
+| mongodb           | localhost:27017                     | mosstar           | mosstar123 |
+| redis             | localhost:6379                      | -                 | -          |
+| rabbitmq          | localhost:5672                      | mosstar           | mosstar123 |
+| pgAdmin           | http://pgadmin.internal             | mosstar@local.dev | mosstar123 |
+| rabbitmq console  | http://rabbitmq.internal            | mosstar           | mosstar123 |
+| geoserver         | http://geoserver.internal/geoserver | mosstar           | mosstar123 |
+| minio             | http://minio.internal               | mosstar           | mosstar123 |
+| minio console     | http://minio-console.internal       | mosstar           | mosstar123 |
+| keycloak          | http://keycloak.internal            | mosstar           | mosstar123 |
+| elasticsearch     | http://elasticsearch.internal       | elastic           | mosstar123 |
+| kibana            | http://kibana.internal              | elastic           | mosstar123 |
+| apm-server        | http://apm.internal                 | -                 | mosstar123 |
+| grafana           | http://grafana.internal             | mosstar           | mosstar123 |
+| influxdb          | localhost:8181                      | -                 | -          |
+| influxdb (ui)     | http://influxdb.internal            | -                 | -          |
+| n8n               | http://n8n.internal                 | -                 | -          |
+| mailpit (smtp)    | localhost:1025                      | mosstar           | mosstar123 |
+| mailpit (ui)      | http://mailpit.internal             | -                 | -          |
+| seq               | localhost:5341                      | -                 | -          |
+| seq (ui)          | http://seq.internal                 | -                 | -          |
+| metabase          | http://metabase.internal            | -                 | -          |
 
 ## Development Tools and Programs Used in @mosstar
 

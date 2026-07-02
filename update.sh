@@ -7,14 +7,14 @@ usage() {
     echo "  --with-build    Restart docker compose with build"
     echo "  --recreate-env  Recreate .env file from .env.sample"
     echo "  --no-git-pull   Skip pulling the repository"
-    echo "  --tld <value>   Set the domain TLD (default: local), used with --recreate-env option"
+    echo "  --tld <value>   Set the domain TLD (default: internal), used with --recreate-env option"
     exit 0
 }
 
 # Parse command line options
 SKIP_BUILD=true
 SKIP_PULL=false
-LOCAL_TLD="local"
+LOCAL_TLD="internal"
 RECREATE_ENV_FILE=false
 
 while [[ "$#" -gt 0 ]]; do
@@ -57,8 +57,8 @@ fi
 # restart the docker containers with or without build
 if [ "$SKIP_BUILD" = true ]; then
     echo "Starting Docker Compose without build..."
-    docker compose up -d
+    docker compose up -d --remove-orphans
 else
     echo "Starting Docker Compose with build..."
-    docker compose up --build -d
+    docker compose up --build -d --remove-orphans
 fi

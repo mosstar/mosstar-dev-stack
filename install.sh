@@ -7,7 +7,7 @@ usage() {
     echo "  --no-clone       Skip cloning the repository"
     echo "  --no-configure   Skip configuring dnsmasq and resolver"
     echo "  --no-install     Skip installing Homebrew and dnsmasq"
-    echo "  --tld <value>    Set the domain TLD (default: local)"
+    echo "  --tld <value>    Set the domain TLD (default: internal)"
     exit 0
 }
 
@@ -15,7 +15,7 @@ usage() {
 SKIP_INSTALL=false
 SKIP_CONFIGURE=false
 SKIP_CLONE=false
-LOCAL_TLD="local"
+LOCAL_TLD="internal"
 
 while [[ "$#" -gt 0 ]]; do
     case "$1" in

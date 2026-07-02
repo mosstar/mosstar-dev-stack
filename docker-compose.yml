@@ -2,7 +2,7 @@ name: mosstar-dev-stack
 
 services:
   traefik:
-    image: traefik:v3.6.13
+    image: traefik:v3.7.6
     command:
       - "--configFile=/etc/traefik/traefik.yml"
     restart: always
@@ -22,7 +22,7 @@ services:
       TZ: "Europe/Istanbul"
     labels:
       - traefik.enable=true
-      - traefik.http.routers.traefik.rule=Host(`traefik.${LOCAL_TLD-local}`)
+      - traefik.http.routers.traefik.rule=Host(`traefik.${LOCAL_TLD:-internal}`)
       - traefik.http.routers.traefik.service=api@internal
 
   portainer:
@@ -34,7 +34,7 @@ services:
       - portainer-data:/data
     labels:
       - traefik.enable=true
-      - traefik.http.routers.portainer.rule=Host(`portainer.${LOCAL_TLD-local}`)
+      - traefik.http.routers.portainer.rule=Host(`portainer.${LOCAL_TLD:-internal}`)
       - traefik.http.routers.portainer.entrypoints=http
       - traefik.http.services.portainer.loadbalancer.server.port=9000
 
@@ -65,7 +65,7 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${DEFAULT_PASSWORD}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.pgadmin.rule=Host(`pgadmin.${LOCAL_TLD-local}`)
+      - traefik.http.routers.pgadmin.rule=Host(`pgadmin.${LOCAL_TLD:-internal}`)
       - traefik.http.routers.pgadmin.entrypoints=http
       - traefik.http.services.pgadmin.loadbalancer.server.port=80
 
@@ -91,7 +91,7 @@ services:
       ROOT_WEBAPP_REDIRECT: true
     labels:
       - traefik.enable=true
-      - traefik.http.routers.geoserver.rule=Host(`geoserver.${LOCAL_TLD-local}`)
+      - traefik.http.routers.geoserver.rule=Host(`geoserver.${LOCAL_TLD:-internal}`)
       - traefik.http.routers.geoserver.entrypoints=http
       - traefik.http.services.geoserver.loadbalancer.server.port=8080
 
@@ -104,16 +104,16 @@ services:
     environment:
       MINIO_ROOT_USER: ${DEFAULT_USERNAME}
       MINIO_ROOT_PASSWORD: ${DEFAULT_PASSWORD}
-      MINIO_BROWSER_REDIRECT_URL: http://minio-console.${LOCAL_TLD-local}
+      MINIO_BROWSER_REDIRECT_URL: http://minio-console.${LOCAL_TLD:-internal}
     labels:
       - traefik.enable=true
 
-      - traefik.http.routers.minio.rule=Host(`minio.${LOCAL_TLD-local}`)
+      - traefik.http.routers.minio.rule=Host(`minio.${LOCAL_TLD:-internal}`)
       - traefik.http.routers.minio.entrypoints=http
       - traefik.http.routers.minio.service=minio
       - traefik.http.services.minio.loadbalancer.server.port=9000
 
-      - traefik.http.routers.minio-console.rule=Host(`minio-console.${LOCAL_TLD-local}`)
+      - traefik.http.routers.minio-console.rule=Host(`minio-console.${LOCAL_TLD:-internal}`)
       - traefik.http.routers.minio-console.entrypoints=http
       - traefik.http.routers.minio-console.service=minio-console
       - traefik.http.services.minio-console.loadbalancer.server.port=9001
@@ -135,12 +135,12 @@ services:
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: keycloak
       # Server Configuration
-      KC_HOSTNAME: http://keycloak.${LOCAL_TLD-local}
+      KC_HOSTNAME: http://keycloak.${LOCAL_TLD:-internal}
       KEYCLOAK_ADMIN: ${DEFAULT_USERNAME}
       KEYCLOAK_ADMIN_PASSWORD: ${DEFAULT_PASSWORD}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.keycloak.rule=Host(`keycloak.${LOCAL_TLD-local}`)
+      - traefik.http.routers.keycloak.rule=Host(`keycloak.${LOCAL_TLD:-internal}`)
       - traefik.http.routers.keycloak.entrypoints=http
       - traefik.http.services.keycloak.loadbalancer.server.port=8080
 
@@ -157,7 +157,7 @@ services:
       - ELASTIC_PASSWORD=${DEFAULT_PASSWORD}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.elasticsearch.rule=Host(`elasticsearch.${LOCAL_TLD-local}`)
+      - traefik.http.routers.elasticsearch.rule=Host(`elasticsearch.${LOCAL_TLD:-internal}`)
       - traefik.http.routers.elasticsearch.entrypoints=http
       - traefik.http.services.elasticsearch.loadbalancer.server.port=9200
 
@@ -167,13 +167,13 @@ services:
     depends_on:
       - elasticsearch
     environment:
-      ELASTICSEARCH_HOSTS: http://elasticsearch.${LOCAL_TLD-local}:9200
+      ELASTICSEARCH_HOSTS: http://elasticsearch.${LOCAL_TLD:-internal}:9200
       ELASTICSEARCH_USERNAME: elastic
       ELASTICSEARCH_PASSWORD: ${DEFAULT_PASSWORD}
-      SERVER_PUBLICBASEURL: http://kibana.${LOCAL_TLD-local}
+      SERVER_PUBLICBASEURL: http://kibana.${LOCAL_TLD:-internal}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.kibana.rule=Host(`kibana.${LOCAL_TLD-local}`)
+      - traefik.http.routers.kibana.rule=Host(`kibana.${LOCAL_TLD:-internal}`)
       - traefik.http.routers.kibana.entrypoints=http
       - traefik.http.services.kibana.loadbalancer.server.port=5601
 
@@ -194,7 +194,7 @@ services:
         -E apm-server.auth.secret_token=$ELASTIC_APM_SECRET_TOKEN
     labels:
       - traefik.enable=true
-      - traefik.http.routers.apm-server.rule=Host(`apm.${LOCAL_TLD-local}`)
+      - traefik.http.routers.apm-server.rule=Host(`apm.${LOCAL_TLD:-internal}`)
       - traefik.http.routers.apm-server.entrypoints=http
       - traefik.http.services.apm-server.loadbalancer.server.port=8200
 
@@ -214,7 +214,7 @@ services:
       - traefik.tcp.routers.rabbitmq.service=rabbitmq
       - traefik.tcp.services.rabbitmq.loadbalancer.server.port=5672
 
-      - traefik.http.routers.rabbitmq-console.rule=Host(`rabbitmq.${LOCAL_TLD-local}`)
+      - traefik.http.routers.rabbitmq-console.rule=Host(`rabbitmq.${LOCAL_TLD:-internal}`)
       - traefik.http.routers.rabbitmq-console.entrypoints=http
       - traefik.http.routers.rabbitmq-console.service=rabbitmq-console
       - traefik.http.services.rabbitmq-console.loadbalancer.server.port=15672
@@ -243,7 +243,7 @@ services:
       GF_SECURITY_ADMIN_PASSWORD: ${DEFAULT_PASSWORD}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.grafana.rule=Host(`grafana.${LOCAL_TLD-local}`)
+      - traefik.http.routers.grafana.rule=Host(`grafana.${LOCAL_TLD:-internal}`)
       - traefik.http.routers.grafana.entrypoints=http
       - traefik.http.services.grafana.loadbalancer.server.port=3000
 
@@ -265,7 +265,7 @@ services:
       TZ: ${DEFAULT_TIMEZONE}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.n8n.rule=Host(`n8n.${LOCAL_TLD-local}`)
+      - traefik.http.routers.n8n.rule=Host(`n8n.${LOCAL_TLD:-internal}`)
       - traefik.http.routers.n8n.entrypoints=http
       - traefik.http.services.n8n.loadbalancer.server.port=5678
 
@@ -287,7 +287,7 @@ services:
       - traefik.tcp.routers.mailpit-smtp.service=mailpit-smtp
       - traefik.tcp.services.mailpit-smtp.loadbalancer.server.port=1025
 
-      - traefik.http.routers.mailpit-ui.rule=Host(`mailpit.${LOCAL_TLD-local}`)
+      - traefik.http.routers.mailpit-ui.rule=Host(`mailpit.${LOCAL_TLD:-internal}`)
       - traefik.http.routers.mailpit-ui.entrypoints=http
       - traefik.http.routers.mailpit-ui.service=mailpit-ui
       - traefik.http.services.mailpit-ui.loadbalancer.server.port=8025
@@ -325,7 +325,7 @@ services:
       - influxdb-explorer-data:/db
     labels:
       - traefik.enable=true
-      - traefik.http.routers.influxdb-explorer-ui.rule=Host(`influxdb.${LOCAL_TLD-local}`)
+      - traefik.http.routers.influxdb-explorer-ui.rule=Host(`influxdb.${LOCAL_TLD:-internal}`)
       - traefik.http.routers.influxdb-explorer-ui.entrypoints=http
       - traefik.http.services.influxdb-explorer-ui.loadbalancer.server.port=80
 
@@ -337,11 +337,11 @@ services:
     environment:
       ACCEPT_EULA: "Y"
       SEQ_PASSWORD: ${DEFAULT_PASSWORD}
-      SEQ_API_CANONICALURI: http://seq.${LOCAL_TLD-local}
+      SEQ_API_CANONICALURI: http://seq.${LOCAL_TLD:-internal}
     labels:
       - traefik.enable=true
 
-      - traefik.http.routers.seq-ui.rule=Host(`seq.${LOCAL_TLD-local}`)
+      - traefik.http.routers.seq-ui.rule=Host(`seq.${LOCAL_TLD:-internal}`)
       - traefik.http.routers.seq-ui.entrypoints=http
       - traefik.http.routers.seq-ui.service=seq-ui
       - traefik.http.services.seq-ui.loadbalancer.server.port=80
@@ -363,7 +363,7 @@ services:
       - ./volumes/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     labels:
       - traefik.enable=true
-      - traefik.http.routers.prometheus.rule=Host(`prometheus.${LOCAL_TLD-local}`)
+      - traefik.http.routers.prometheus.rule=Host(`prometheus.${LOCAL_TLD:-internal}`)
       - traefik.http.routers.prometheus.entrypoints=http
       - traefik.http.services.prometheus.loadbalancer.server.port=9090
 
@@ -384,7 +384,7 @@ services:
       JAVA_TIMEZONE: Europe/Istanbul
     labels:
       - traefik.enable=true
-      - traefik.http.routers.metabase.rule=Host(`metabase.${LOCAL_TLD-local}`)
+      - traefik.http.routers.metabase.rule=Host(`metabase.${LOCAL_TLD:-internal}`)
       - traefik.http.routers.metabase.entrypoints=http
       - traefik.http.services.metabase.loadbalancer.server.port=3000
 
