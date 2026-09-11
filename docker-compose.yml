@@ -2,7 +2,7 @@ name: mosstar-dev-stack
 
 services:
   traefik:
-    image: traefik:v3.7.6
+    image: traefik:v3.7.13
     command:
       - "--configFile=/etc/traefik/traefik.yml"
     restart: always
@@ -26,7 +26,7 @@ services:
       - traefik.http.routers.traefik.service=api@internal
 
   portainer:
-    image: portainer/portainer-ce:2.40.0
+    image: portainer/portainer-ce:2.45.0
     command: -H unix:///var/run/docker.sock
     restart: always
     volumes:
@@ -55,7 +55,7 @@ services:
       - traefik.tcp.services.postgres.loadbalancer.server.port=5432
 
   pgadmin:
-    image: dpage/pgadmin4:9.14
+    image: dpage/pgadmin4:9.17
     restart: always
     volumes:
       - pgadmin-data:/var/lib/pgadmin
@@ -70,7 +70,7 @@ services:
       - traefik.http.services.pgadmin.loadbalancer.server.port=80
 
   redis:
-    image: redis:8.6-alpine
+    image: redis:8.10.1-alpine
     restart: always
     volumes:
       - redis-data:/data
@@ -203,7 +203,7 @@ services:
       - traefik.http.services.apm-server.loadbalancer.server.port=8200
 
   rabbitmq:
-    image: rabbitmq:4.2.5-management-alpine
+    image: rabbitmq:4.3.5-management-alpine
     restart: unless-stopped
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
@@ -238,7 +238,7 @@ services:
       - traefik.tcp.services.mongodb.loadbalancer.server.port=27017
 
   grafana:
-    image: grafana/grafana:12.3.2
+    image: grafana/grafana:13.0.8
     profiles: [monitoring]
     restart: unless-stopped
     volumes:
@@ -276,7 +276,7 @@ services:
       - traefik.http.services.n8n.loadbalancer.server.port=5678
 
   mailpit:
-    image: axllent/mailpit:v1.29.0
+    image: axllent/mailpit:v1.31.0
     restart: always
     volumes:
       - mailpit-data:/data
@@ -338,7 +338,7 @@ services:
       - traefik.http.services.influxdb-explorer-ui.loadbalancer.server.port=80
 
   seq:
-    image: datalust/seq:2025.2
+    image: datalust/seq:2026.1.17114
     profiles: [monitoring]
     restart: unless-stopped
     volumes:
@@ -361,7 +361,7 @@ services:
       - traefik.tcp.services.seq-api.loadbalancer.server.port=5341
 
   prometheus:
-    image: prom/prometheus:v3.3.1
+    image: prom/prometheus:v3.13.3
     profiles: [monitoring]
     restart: unless-stopped
     command:
@@ -378,7 +378,7 @@ services:
       - traefik.http.services.prometheus.loadbalancer.server.port=9090
 
   metabase:
-    image: metabase/metabase:v0.60.0.x
+    image: metabase/metabase:v0.63.17.x
     profiles: [tools]
     restart: unless-stopped
     depends_on:
