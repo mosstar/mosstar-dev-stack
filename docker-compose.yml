@@ -170,7 +170,7 @@ services:
     depends_on:
       - elasticsearch
     environment:
-      ELASTICSEARCH_HOSTS: http://elasticsearch.${LOCAL_TLD:-internal}:9200
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
       ELASTICSEARCH_USERNAME: elastic
       ELASTICSEARCH_PASSWORD: ${DEFAULT_PASSWORD}
       SERVER_PUBLICBASEURL: http://kibana.${LOCAL_TLD:-internal}
