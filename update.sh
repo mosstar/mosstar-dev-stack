@@ -5,7 +5,7 @@ usage() {
     echo "Usage: $0 [--with-build] [--recreate-env] [--no-git-pull]"
     echo "  -h, --help      Display this help message"
     echo "  --with-build    Restart docker compose with build"
-    echo "  --recreate-env  Recreate .env file from .env.sample"
+    echo "  --recreate-env  Recreate .env file from .env.example"
     echo "  --no-git-pull   Skip pulling the repository"
     echo "  --tld <value>   Set the domain TLD (default: internal), used with --recreate-env option"
     exit 0
@@ -47,7 +47,7 @@ fi
 
 # recreate the .env file if requested
 if [ "$RECREATE_ENV_FILE" = true ]; then
-    cp .env.sample .env
+    cp .env.example .env
     # Add TLD to environment file
     echo "" >> .env
     echo "# local domain" >> .env

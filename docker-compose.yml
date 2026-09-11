@@ -388,6 +388,29 @@ services:
       - traefik.http.routers.metabase.entrypoints=http
       - traefik.http.services.metabase.loadbalancer.server.port=3000
 
+  litellm:
+    image: ghcr.io/berriai/litellm:1.100.1
+    profiles: [ai] # opt-in, enable with COMPOSE_PROFILES=ai in .env
+    command: ["--config", "/app/config.yaml"]
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    volumes:
+      - ./volumes/litellm/config.yaml:/app/config.yaml
+    environment:
+      LITELLM_MASTER_KEY: sk-${DEFAULT_PASSWORD}
+      LITELLM_SALT_KEY: "Zf2Gfj28BksKSn1+gudpSqX9wQllGyb5zJIS9zIEp5Q="
+      DATABASE_URL: "postgresql://litellm:litellm@postgres:5432/litellm"
+      STORE_MODEL_IN_DB: "True"
+      UI_USERNAME: ${DEFAULT_USERNAME}
+      UI_PASSWORD: ${DEFAULT_PASSWORD}
+    models: [chat]
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.litellm.rule=Host(`llm.${LOCAL_TLD:-internal}`)
+      - traefik.http.routers.litellm.entrypoints=http
+      - traefik.http.services.litellm.loadbalancer.server.port=4000
+
 volumes:
   portainer-data:
   postgres-data:
@@ -407,3 +430,7 @@ volumes:
   influxdb-plugins:
   influxdb-explorer-data:
   prometheus-data:
+
+models:
+  chat:
+    model: ai/smollm2:360M-Q4_K_M

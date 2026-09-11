@@ -1,0 +1,23 @@
+# LiteLLM proxy configuration
+# Docs: https://docs.litellm.ai/docs/proxy/configs
+
+model_list:
+  - model_name: chat
+    litellm_params:
+      model: os.environ/CHAT_MODEL
+      custom_llm_provider: openai
+      api_base: os.environ/CHAT_URL
+      api_key: dmr # Docker Model Runner does not check the key
+
+  # Example: route a model name to a cloud provider (set OPENAI_API_KEY in .env)
+  # - model_name: gpt-4o-mini
+  #   litellm_params:
+  #     model: openai/gpt-4o-mini
+  #     api_key: os.environ/OPENAI_API_KEY
+
+litellm_settings:
+  drop_params: true
+  request_timeout: 600
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY

@@ -15,3 +15,4 @@
 127.0.0.1 influxdb.internal
 127.0.0.1 seq.internal
 127.0.0.1 metabase.internal
+127.0.0.1 llm.internal

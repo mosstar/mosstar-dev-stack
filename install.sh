@@ -116,7 +116,7 @@ git clone $REPO_URL $FOLDER_NAME
 if [ -d "$FOLDER_NAME" ]; then
     cd $FOLDER_NAME || exit
     # Copy the sample .env file
-    cp .env.sample .env
+    cp .env.example .env
     # Add TLD to environment file
     echo "" >> .env
     echo "# local domain" >> .env

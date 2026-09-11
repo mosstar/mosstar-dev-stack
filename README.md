@@ -24,7 +24,7 @@ To start the development stack, run the following commands:
 ```bash
 git clone https://github.com/mosstar/mosstar-dev-stack.git
 cd mosstar-dev-stack
-cp .env.sample .env
+cp .env.example .env
 docker compose up -d
 ```
 
@@ -73,6 +73,35 @@ The development stack includes the following services:
 | seq               | localhost:5341                      | -                 | -          |
 | seq (ui)          | http://seq.internal                 | -                 | -          |
 | metabase          | http://metabase.internal            | -                 | -          |
+| litellm (ui)      | http://llm.internal/ui              | mosstar           | mosstar123 |
+
+### AI Models (optional)
+
+The `ai` profile adds an OpenAI-compatible API backed by local models.
+Models run on [Docker Model Runner](https://docs.docker.com/ai/model-runner/) (GPU accelerated on Apple Silicon and
+NVIDIA) and are served through a [LiteLLM](https://docs.litellm.ai/) proxy.
+
+1. Enable Docker Model Runner in Docker Desktop (Settings → AI).
+2. Uncomment `COMPOSE_PROFILES=ai` in your `.env` file (`--recreate-env` resets it, so uncomment it again afterwards).
+3. Run `./update.sh`. The first start downloads the model (~270 MB).
+
+| Setting  | Value                  |
+|----------|------------------------|
+| Base URL | http://llm.internal/v1 |
+| API key  | sk-mosstar123          |
+| Models   | `chat`                 |
+
+```bash
+curl http://llm.internal/v1/chat/completions \
+  -H "Authorization: Bearer sk-mosstar123" \
+  -H "Content-Type: application/json" \
+  -d '{"model": "chat", "messages": [{"role": "user", "content": "Hello!"}]}'
+```
+
+`chat` is served by [SmolLM2 360M](https://hub.docker.com/r/ai/smollm2), a small, mostly English model chosen to keep
+resource usage low. It is good enough for integration and smoke tests, not for real output quality.
+Applications should always call the `chat` alias: to use a bigger model, change the `models` section in
+`docker-compose.yml` and no application code needs to change.
 
 ## Development Tools and Programs Used in @mosstar
 
