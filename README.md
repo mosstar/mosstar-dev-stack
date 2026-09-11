@@ -47,33 +47,54 @@ The `--no-git-pull` option will prevent the script from pulling the latest chang
 
 The development stack includes the following services:
 
-| Service           | Address                             | User Name         | Password   |
-|-------------------|-------------------------------------|-------------------|------------|
-| Traefik Dashboard | http://traefik.internal             | -                 | -          |
-| Portainer UI      | http://portainer.internal           | -                 | -          |
-| postgres          | localhost:5432                      | mosstar           | mosstar123 |
-| mongodb           | localhost:27017                     | mosstar           | mosstar123 |
-| redis             | localhost:6379                      | -                 | -          |
-| rabbitmq          | localhost:5672                      | mosstar           | mosstar123 |
-| pgAdmin           | http://pgadmin.internal             | mosstar@local.dev | mosstar123 |
-| rabbitmq console  | http://rabbitmq.internal            | mosstar           | mosstar123 |
-| geoserver         | http://geoserver.internal/geoserver | mosstar           | mosstar123 |
-| minio             | http://minio.internal               | mosstar           | mosstar123 |
-| minio console     | http://minio-console.internal       | mosstar           | mosstar123 |
-| keycloak          | http://keycloak.internal            | mosstar           | mosstar123 |
-| elasticsearch     | http://elasticsearch.internal       | elastic           | mosstar123 |
-| kibana            | http://kibana.internal              | elastic           | mosstar123 |
-| apm-server        | http://apm.internal                 | -                 | mosstar123 |
-| grafana           | http://grafana.internal             | mosstar           | mosstar123 |
-| influxdb          | localhost:8181                      | -                 | -          |
-| influxdb (ui)     | http://influxdb.internal            | -                 | -          |
-| n8n               | http://n8n.internal                 | -                 | -          |
-| mailpit (smtp)    | localhost:1025                      | mosstar           | mosstar123 |
-| mailpit (ui)      | http://mailpit.internal             | -                 | -          |
-| seq               | localhost:5341                      | -                 | -          |
-| seq (ui)          | http://seq.internal                 | -                 | -          |
-| metabase          | http://metabase.internal            | -                 | -          |
-| litellm (ui)      | http://llm.internal/ui              | mosstar           | mosstar123 |
+| Service           | Address                             | User Name         | Password   | Profile    |
+|-------------------|-------------------------------------|-------------------|------------|------------|
+| Traefik Dashboard | http://traefik.internal             | -                 | -          | -          |
+| Portainer UI      | http://portainer.internal           | -                 | -          | -          |
+| postgres          | localhost:5432                      | mosstar           | mosstar123 | -          |
+| mongodb           | localhost:27017                     | mosstar           | mosstar123 | -          |
+| redis             | localhost:6379                      | -                 | -          | -          |
+| rabbitmq          | localhost:5672                      | mosstar           | mosstar123 | -          |
+| pgAdmin           | http://pgadmin.internal             | mosstar@local.dev | mosstar123 | -          |
+| rabbitmq console  | http://rabbitmq.internal            | mosstar           | mosstar123 | -          |
+| minio             | http://minio.internal               | mosstar           | mosstar123 | -          |
+| minio console     | http://minio-console.internal       | mosstar           | mosstar123 | -          |
+| keycloak          | http://keycloak.internal            | mosstar           | mosstar123 | -          |
+| mailpit (smtp)    | localhost:1025                      | mosstar           | mosstar123 | -          |
+| mailpit (ui)      | http://mailpit.internal             | -                 | -          | -          |
+| elasticsearch     | http://elasticsearch.internal       | elastic           | mosstar123 | elastic    |
+| kibana            | http://kibana.internal              | elastic           | mosstar123 | elastic    |
+| apm-server        | http://apm.internal                 | -                 | mosstar123 | elastic    |
+| grafana           | http://grafana.internal             | mosstar           | mosstar123 | monitoring |
+| influxdb          | localhost:8181                      | -                 | -          | monitoring |
+| influxdb (ui)     | http://influxdb.internal            | -                 | -          | monitoring |
+| seq               | localhost:5341                      | -                 | -          | monitoring |
+| seq (ui)          | http://seq.internal                 | -                 | -          | monitoring |
+| geoserver         | http://geoserver.internal/geoserver | mosstar           | mosstar123 | gis        |
+| n8n               | http://n8n.internal                 | -                 | -          | tools      |
+| metabase          | http://metabase.internal            | -                 | -          | tools      |
+| litellm (ui)      | http://llm.internal/ui              | mosstar           | mosstar123 | ai         |
+
+### Profiles
+
+Services without a profile always start. Services with a profile are optional and start only when their profile is
+enabled. To enable profiles, set `COMPOSE_PROFILES` in your `.env` file (comma-separated) and run `./update.sh`:
+
+```bash
+COMPOSE_PROFILES=elastic,tools
+```
+
+`--recreate-env` resets `.env`, so set `COMPOSE_PROFILES` again afterwards.
+
+- To start one optional service without changing `.env`, target it directly: `docker compose up -d kibana`. Its
+  dependencies start as well.
+- To start everything: `docker compose --profile "*" up -d`
+- `docker compose down` only stops services of enabled profiles. To stop everything, or after removing a profile from
+  `.env`, use `docker compose --profile "*" down`.
+
+If you are upgrading from a version without profiles, add the profiles you use to `.env`, otherwise those services keep
+running but are no longer updated. To remove the services you no longer need, run `docker compose --profile "*" down`
+and then `./update.sh`.
 
 ### AI Models (optional)
 
@@ -82,7 +103,7 @@ Models run on [Docker Model Runner](https://docs.docker.com/ai/model-runner/) (G
 NVIDIA) and are served through a [LiteLLM](https://docs.litellm.ai/) proxy.
 
 1. Enable Docker Model Runner in Docker Desktop (Settings → AI).
-2. Uncomment `COMPOSE_PROFILES=ai` in your `.env` file (`--recreate-env` resets it, so uncomment it again afterwards).
+2. Add `ai` to `COMPOSE_PROFILES` in your `.env` file (see [Profiles](#profiles)).
 3. Run `./update.sh`. The first start downloads the model (~270 MB).
 
 | Setting  | Value                  |

@@ -82,6 +82,7 @@ services:
 
   geoserver:
     image: kartoza/geoserver:2.27.2
+    profiles: [gis]
     restart: unless-stopped
     volumes:
       - geoserver-data:/opt/geoserver/data_dir
@@ -146,6 +147,7 @@ services:
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+    profiles: [elastic]
     restart: unless-stopped
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
@@ -163,6 +165,7 @@ services:
 
   kibana:
     image: docker.elastic.co/kibana/kibana:${ELASTIC_VERSION}
+    profiles: [elastic]
     restart: unless-stopped
     depends_on:
       - elasticsearch
@@ -179,6 +182,7 @@ services:
 
   apm-server:
     image: docker.elastic.co/apm/apm-server:${ELASTIC_VERSION}
+    profiles: [elastic]
     restart: unless-stopped
     depends_on:
       - elasticsearch
@@ -235,6 +239,7 @@ services:
 
   grafana:
     image: grafana/grafana:12.3.2
+    profiles: [monitoring]
     restart: unless-stopped
     volumes:
       - grafana-data:/var/lib/grafana
@@ -249,6 +254,7 @@ services:
 
   n8n:
     image: docker.n8n.io/n8nio/n8n:1.105.4
+    profiles: [tools]
     restart: unless-stopped
     volumes:
       - n8n-data:/home/node/.n8n
@@ -294,6 +300,7 @@ services:
 
   influxdb:
     image: influxdb:3.8.3-core
+    profiles: [monitoring]
     command:
       - influxdb3
       - serve
@@ -316,6 +323,7 @@ services:
 
   influxdb-explorer:
     image: influxdata/influxdb3-ui:1.6.3
+    profiles: [monitoring]
     command:
       - --mode=admin
     restart: unless-stopped
@@ -331,6 +339,7 @@ services:
 
   seq:
     image: datalust/seq:2025.2
+    profiles: [monitoring]
     restart: unless-stopped
     volumes:
       - seq-data:/data
@@ -353,6 +362,7 @@ services:
 
   prometheus:
     image: prom/prometheus:v3.3.1
+    profiles: [monitoring]
     restart: unless-stopped
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -369,6 +379,7 @@ services:
 
   metabase:
     image: metabase/metabase:v0.60.0.x
+    profiles: [tools]
     restart: unless-stopped
     depends_on:
       - postgres
@@ -390,7 +401,7 @@ services:
 
   litellm:
     image: ghcr.io/berriai/litellm:1.100.1
-    profiles: [ai] # opt-in, enable with COMPOSE_PROFILES=ai in .env
+    profiles: [ai]
     command: ["--config", "/app/config.yaml"]
     restart: unless-stopped
     depends_on:
